@@ -28,6 +28,26 @@ html, body {
     color: var(--color-text);
 }
 
+.color-primary{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.circle-small {
+   
+    width: 200px;
+    border-radius: 50%;
+    margin-right: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 b {
     font-family: 'PoppinsMedium';
 }
