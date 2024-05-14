@@ -419,7 +419,7 @@ cardapio.metodos = {
     },
 
     carregarBotaoReserva: () => {
-        var texto = "Olá!  *";
+        var texto = "Olá! ";
         let encode = encodeURI(texto);
         let URL = `https://wa.me/${CELULAR_EMPRESA}?text=${encode}`
 
