@@ -26,6 +26,15 @@ cardapio.eventos = {
 
 cardapio.metodos = {
 
+    abrirLogin: (abrir) => {
+        if (abrir) {
+            $("#modalLogin").removeClass('hidden');
+            
+        } else {
+            $("#modalLogin").addClass('hidden');
+        }
+    },
+
     obterItensCardapio: (categoria = 'burgers', vermais = false) => {
 
         var filtro = MENU[categoria];
@@ -466,6 +475,24 @@ cardapio.metodos = {
     }
 
 }
+
+    // Função para validar o formulário de login e redirecionar para o modal de cadastro de comida
+    function validateLogin() {
+        var email = document.getElementById('inputEmail').value;
+        var password = document.getElementById('inputPassword').value;
+
+        // Verifica se o e-mail e a senha correspondem ao conjunto específico
+        if (email === 'teste@gmail.com' && password === '0210') {
+            alert('Login bem-sucedido! Redirecionando para o cadastro de comida...');
+            // Fecha o modal de login
+            $('#modalLogin').modal('hide');
+            // Abre o modal de cadastro de comida
+            $('#modalCadastroComida').modal('show');
+        } else {
+            alert('E-mail ou senha incorretos. Por favor, tente novamente.');
+            return false;
+        }
+    }
 
 cardapio.templates = {
 

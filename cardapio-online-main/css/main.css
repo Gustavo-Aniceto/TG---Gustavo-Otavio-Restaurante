@@ -483,6 +483,36 @@ footer {
     background-color: var(--color-secondary);
 }
 
+/* Estilo para o modal de login com tom de amarelo pastel */
+#modalLogin .modal-content {
+    background-color: #fff6cc; /* Cor amarela pastel */
+    border-radius: 10px; /* Borda arredondada */
+}
+
+#modalLogin .modal-title {
+    color: #333; /* Cor do título */
+}
+
+#modalLogin .modal-body {
+    color: #555; /* Cor do texto do corpo */
+}
+
+#modalLogin .modal-footer {
+    border-top: none; /* Remove a borda superior do rodapé */
+}
+
+#modalLogin .btn-primary {
+    background-color: #333; /* Cor de fundo do botão Entrar */
+    border-color: #333; /* Cor da borda do botão Entrar */
+    color: #fff; /* Cor do texto do botão Entrar */
+}
+
+#modalLogin .btn-primary:hover {
+    background-color: #555; /* Cor de fundo do botão Entrar ao passar o mouse */
+    border-color: #555; /* Cor da borda do botão Entrar ao passar o mouse */
+}
+
+
 .logo-footer {
     width: 150px;
 }
