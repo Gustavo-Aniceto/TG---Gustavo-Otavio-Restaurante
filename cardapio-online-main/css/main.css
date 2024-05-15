@@ -49,16 +49,6 @@ html, body {
 }
 
 
-.circle-small {
-   
-    width: 200px;
-    border-radius: 50%;
-    margin-right: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 b {
     font-family: 'PoppinsMedium';
 }
@@ -364,95 +354,6 @@ b {
     margin-top: 20px;
 }
 
-.depoimentos {
-    padding-top: 100px;
-    padding-bottom: 150px;
-}
-
-.card-depoimentos {
-    width: 390px;
-    height: 390px;
-    border-radius: 120px;
-    background-color: var(--color-secondary);
-    position: absolute;
-    left: 0;
-}
-
-.container-dados-depoimento {
-    display: flex;
-}
-
-.depoimento {
-    margin-top: 70px;
-}
-
-.background-depoimentos {
-    position: absolute;
-    right: 0;
-    left: 0;
-    height: 500px;
-    background-image: url('../img/bg-icons-1.png');
-}
-
-.imagem-depoimento {
-    width: 65px;
-    height: 65px;
-    background-color: var(--color-white);
-    border-radius: 50%;
-    background-repeat: no-repeat;
-    background-position: center;
-    margin-right: 15px;
-}
-
-#depoimento-1 .imagem-depoimento {
-    background-image: url(../img/diego.jpg);
-    background-size: cover;
-}
-
-#depoimento-2 .imagem-depoimento {
-    background-image: url(../img/ana.jpg);
-    background-size: cover;
-}
-
-#depoimento-3 .imagem-depoimento {
-    background-image: url(../img/joao.jpg);
-    background-size: cover;
-}
-
-.nome-depoimento {
-    color: var(--color-black);
-    font-size: 22px;
-    margin-bottom: 5px;
-}
-
-.nota-depoimento {
-    color: var(--color-primary);
-}
-
-.nota-depoimento span {
-    color: var(--color-black);
-}
-
-.texto-depoimento {
-    display: flex;
-    font-size: 16px;
-    color: var(--color-black);
-}
-
-.texto-depoimento i {
-    font-size: 35px;
-    color: var(--color-primary);
-}
-
-.texto-depoimento i:first-child {
-    padding-left: 10px;
-    padding-right: 35px;
-}
-
-.texto-depoimento i:last-child {
-    padding-left: 45px;
-    align-self: flex-end;
-}
 
 .reserva {
     padding-top: 100px;
@@ -511,6 +412,38 @@ footer {
     background-color: #555; /* Cor de fundo do botão Entrar ao passar o mouse */
     border-color: #555; /* Cor da borda do botão Entrar ao passar o mouse */
 }
+
+
+
+/* Estilo para o modal de cadatro com tom de amarelo pastel */
+#modalCadastroComida .modal-content {
+    background-color: #fff6cc; /* Cor amarela pastel */
+    border-radius: 10px; /* Borda arredondada */
+}
+
+#modalCadastroComida .modal-title {
+    color: #333; /* Cor do título */
+}
+
+#modalCadastroComida .modal-body {
+    color: #555; /* Cor do texto do corpo */
+}
+
+#modalCadastroComida .modal-footer {
+    border-top: none; /* Remove a borda superior do rodapé */
+}
+
+#modalCadastroComida .btn-primary {
+    background-color: #333; /* Cor de fundo do botão Entrar */
+    border-color: #333; /* Cor da borda do botão Entrar */
+    color: #fff; /* Cor do texto do botão Entrar */
+}
+
+#modalCadastroComida .btn-primary:hover {
+    background-color: #555; /* Cor de fundo do botão Entrar ao passar o mouse */
+    border-color: #555; /* Cor da borda do botão Entrar ao passar o mouse */
+}
+
 
 
 .logo-footer {
@@ -842,10 +775,32 @@ select.form-control {
     margin-bottom: 10px;
 }
 
-.developers-section {
-    display: flex;
-    justify-content: center;
-    gap: 15em;
 
-    padding: 10em;
+
+.modal-body-background {
+    background-color: #fff2cc; /* Substitua este valor pelo código de cor pastel desejado */
+    padding: 20px; /* Ajuste o preenchimento conforme necessário */
+    border-radius: 10px; /* Adicione bordas arredondadas para suavizar a aparência */
+}
+
+/* Estilo para os rótulos do formulário */
+.form-group label {
+    color: #333; /* Cor dos rótulos */
+}
+
+/* Estilo para os campos de entrada do formulário */
+.form-group input[type="text"] {
+    border: 1px solid #ccc; /* Adicione uma borda sólida para separar os campos */
+    border-radius: 5px; /* Adicione bordas arredondadas aos campos de entrada */
+    padding: 10px; /* Ajuste o preenchimento conforme necessário */
+}
+
+/* Estilo para o botão do formulário */
+.form-group input[type="submit"] {
+    background-color: #f4eeb1; /* Defina a cor de fundo do botão */
+    color: #333; /* Defina a cor do texto do botão */
+    border: none; /* Remova a borda do botão */
+    border-radius: 5px; /* Adicione bordas arredondadas ao botão */
+    padding: 10px 20px; /* Ajuste o preenchimento conforme necessário */
+    cursor: pointer; /* Altere o cursor ao passar sobre o botão */
 }

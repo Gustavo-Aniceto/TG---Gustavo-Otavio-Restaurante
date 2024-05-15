@@ -443,20 +443,7 @@ cardapio.metodos = {
         $('#btnWhatsapp').attr('href', `https://wa.me/${CELULAR_EMPRESA}`);
         $('#btnWhatsappF').attr('href', `https://wa.me/${CELULAR_EMPRESA}`);
     },
-
-    abrirDepoimento: (depoimento) => {
-        $("#depoimento-1").addClass('hidden')
-        $("#depoimento-2").addClass('hidden')
-        $("#depoimento-3").addClass('hidden')
-
-        $("#btnDepoimento-1").removeClass('active')
-        $("#btnDepoimento-2").removeClass('active')
-        $("#btnDepoimento-3").removeClass('active')
-
-        $("#depoimento-" + depoimento).removeClass('hidden');
-        $("#btnDepoimento-" + depoimento).addClass('active')
-    },
-
+    
     mensagem: (texto, cor = 'red', tempo = 3500) => {
 
         let id = Math.floor(Date.now() * Math.random()).toString();
@@ -478,21 +465,39 @@ cardapio.metodos = {
 
     // Função para validar o formulário de login e redirecionar para o modal de cadastro de comida
     function validateLogin() {
+
+
+        // Impede o comportamento padrão de envio do formulário
+        event.preventDefault();
         var email = document.getElementById('inputEmail').value;
         var password = document.getElementById('inputPassword').value;
 
         // Verifica se o e-mail e a senha correspondem ao conjunto específico
         if (email === 'teste@gmail.com' && password === '0210') {
-            alert('Login bem-sucedido! Redirecionando para o cadastro de comida...');
+;
+
             // Fecha o modal de login
             $('#modalLogin').modal('hide');
+
             // Abre o modal de cadastro de comida
             $('#modalCadastroComida').modal('show');
+
+
         } else {
             alert('E-mail ou senha incorretos. Por favor, tente novamente.');
             return false;
         }
     }
+
+    // Select the button element
+        var button = document.querySelector('.btn-primary');
+
+     // Add event listener for click event
+        button.addEventListener('click', function() {
+    // Call the validateLogin() function
+                validateLogin();
+        });
+
 
 cardapio.templates = {
 

@@ -214,25 +214,43 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCadastroComidaLabel">Cadastro de Comida</h5>
+                <h5 class="modal-title" id="modalCadastroComidaLabel">Cadastro de Prato</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <form>
+                    <div class="form-group">
+                        <label>Categoria:</label>
+                        <select id="Categoria" class="form-control">
+                            <option value="-1">...</option>
+                            <option value="AC">Burguers</option>
+                            <option value="AL">Pizzas</option>
+                            <option value="AP">Churrasco</option>
+                            <option value="AM">Steaks</option>
+                            <option value="BA">Bebidas</option>
+                            <option value="CE">Sobremesas</option>  
+                        </select>
+                    </div>
+                </div>
+
+
                     <div class="form-group">
                         <label for="inputNome">Nome da Comida</label>
                         <input type="text" class="form-control" id="inputNome" placeholder="Nome da Comida">
                     </div>
-                    <div class="form-group">
-                        <label for="inputDescricao">Descrição</label>
-                        <textarea class="form-control" id="inputDescricao" rows="3" placeholder="Descrição da Comida"></textarea>
-                    </div>
+
                     <div class="form-group">
                         <label for="inputPreco">Preço</label>
                         <input type="text" class="form-control" id="inputPreco" placeholder="Preço">
                     </div>
+                    <div class="form-group">
+                        <label for="inputImagem">Imagem</label>
+                        <input type="file" class="form-control-file" id="inputImagem">
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -254,21 +272,11 @@
 
             <div class="col-12 col-lg-6 col-md-6 col-sm-12 container-texto-footer">
                 <p class="mb-0">
-                    <b>TG - Gustavo & Otavio</b> &copy; Todos os direitos reservados
+                    <b>TG - Gustavo & Otavio</b>
                 </p>
             </div>
 
-            <div class="col-12 col-lg-3 col-md-3 col-sm-12 container-redes-footer">
-                <a href="https://www.instagram.com/eo_aniceto/" class="btn btn-sm btn-white btn-social mt-4 mr-3" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.facebook.com/gustavo.aniceto.5" class="btn btn-sm btn-white btn-social mt-4 mr-3" target="_blank">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="#" class="btn btn-sm btn-white btn-social mt-4" id="btnWhatsappF" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-      
+            <div class="col-12 col-lg-3 col-md-3 col-sm-12 container-redes-footer">      
                 <button type="button" class="btn btn-sm btn-white btn-social mt-4" data-toggle="modal" data-target="#modalLogin">
                     <i class="fas fa-sign-in-alt"></i> 
                 </button>
