@@ -414,15 +414,24 @@ footer {
 }
 
 
-
-/* Estilo para o modal de cadatro com tom de amarelo pastel */
+/* Estilo para o modal de cadastro com tom de amarelo pastel */
 #modalCadastroComida .modal-content {
     background-color: #fff6cc; /* Cor amarela pastel */
     border-radius: 10px; /* Borda arredondada */
+    height: auto; /* Altura automática para acomodar o conteúdo */
 }
 
 #modalCadastroComida .modal-title {
     color: #333; /* Cor do título */
+}
+
+#modalCadastroComida .modal-dialog {
+    max-width: 700px; /* Defina a largura máxima desejada */
+    min-height: 400px; /* Defina a altura mínima desejada */
+}
+
+.form-control {
+    border-radius: 20px; /* Define o raio de curvatura das bordas */
 }
 
 #modalCadastroComida .modal-body {
@@ -444,6 +453,13 @@ footer {
     border-color: #555; /* Cor da borda do botão Entrar ao passar o mouse */
 }
 
+#inputNome, #inputPreco, #inputImagem {
+    border-radius: 10px; /* Define o raio de curvatura das bordas */
+}
+/* Estilo para diminuir o tamanho das labels */
+label#labelNome, label#labelPreco {
+    font-size: 14px; /* Altere o valor conforme desejado */
+}
 
 
 .logo-footer {
