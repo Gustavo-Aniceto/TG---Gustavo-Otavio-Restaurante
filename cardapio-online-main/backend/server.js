@@ -1,46 +1,34 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const mysql = require('mysql2');
-
+const mysql = require('mysql');
 const app = express();
-const port = 3000;
-
-// Configurar o body-parser para ler JSON
 app.use(bodyParser.json());
 
-// Configurar a conexão com o banco de dados MySQL
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '021003Gu.',
-  database: 'Burguer'
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'yourpassword',
+    database: 'meu_site'
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error('Erro ao conectar no banco de dados:', err);
-    return;
-  }
-  console.log('Conectado ao banco de dados MySQL');
+connection.connect((err) => {
+    if (err) throw err;
+    console.log('Conectado ao MySQL!');
 });
 
-// Endpoint para inserir dados na tabela 'usuarios'
-app.post('/cadastro', (req, res) => {
-  const { id, name, img, dsc, price  } = req.body;
-  const query = 'INSERT INTO cadastro (id, name, img, dsc,price) VALUES (?, ?, ?, ? ,?)';
-
-  db.query(query, [id, name, img, dsc, price ], (err, results) => {
-    if (err) {
-      console.error('Erro ao inserir dados:', err);
-      res.status(500).send('Erro ao inserir dados');
-      return;
-    }
-    res.status(201).send('Usuário criado com sucesso');
-  });
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    const query = 'SELECT * FROM usuarios WHERE email = ? AND senha = ?';
+    connection.query(query, [email, password], (err, results) => {
+        if (err) throw err;
+        if (results.length > 0) {
+            res.json({ success: true });
+        } else {
+            res.json({ success: false });
+        }
+    });
 });
 
-// Iniciar o servidor
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
-  });
-  
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
+});

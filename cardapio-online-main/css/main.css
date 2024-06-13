@@ -412,6 +412,14 @@ footer {
     background-color: #555; /* Cor de fundo do botão Entrar ao passar o mouse */
     border-color: #555; /* Cor da borda do botão Entrar ao passar o mouse */
 }
+body {
+    font-family: Arial, sans-serif;
+}
+
+.modal-dialog {
+    max-width: 500px;
+    margin: 30px auto;
+}
 
 
 /* Estilo para o modal de cadastro com tom de amarelo pastel */
