@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
@@ -8,13 +8,14 @@
   <title>Area Administrativa</title>
   <link rel="stylesheet" href="style.css">
   <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 </head>
 
 <body>
   <div class="container">
     <div class="header">
       <span>Cadastro de Funcionários</span>
-      <button onclick="openModal()" id="new">Incluir</i></button>
+      <button onclick="openModal()" id="new">Incluir</button>
     </div>
 
     <div class="divTable">
@@ -22,8 +23,8 @@
         <thead>
           <tr>
             <th>Nome</th>
-            <th>Função</th>
-            <th>Salário</th>
+            <th>Categoria</th>
+            <th>Preço</th>
             <th class="acao">Editar</th>
             <th class="acao">Excluir</th>
           </tr>
@@ -39,10 +40,10 @@
           <label for="m-nome">Nome</label>
           <input id="m-nome" type="text" required />
   
-          <label for="m-funcao">Função</label>
+          <label for="m-funcao">Categoria</label>
           <input id="m-funcao" type="text" required />
   
-          <label for="m-salario">Salário</label>
+          <label for="m-salario">Preço</label>
           <input id="m-salario" type="number" required />
           <button id="btnSalvar">Salvar</button>
         </form>

@@ -36,7 +36,7 @@ function editItem(crud) {
 }
 
 function deleteItem(crud) {
-  itens.splice(index, 1)
+  itens.splice(crud, 1)
   setItensBD()
   loadItens()
 }
@@ -93,32 +93,25 @@ function loadItens() {
 const getItensBD = () => JSON.parse(localStorage.getItem('dbfunc')) ?? []
 const setItensBD = () => localStorage.setItem('dbfunc', JSON.stringify(itens))
 
+
 function validateLogin(event) {
-    // Impede o comportamento padrão de envio do formulário
-    event.preventDefault();
+  // Impede o comportamento padrão de envio do formulário
+  event.preventDefault();
+  var usuarioValido = true; 
+  var email = document.getElementById('inputEmail').value;
+  var password = document.getElementById('inputPassword').value;
 
-    var email = document.getElementById('inputEmail').value;
-    var password = document.getElementById('inputPassword').value;
+  // Verifica se o e-mail e a senha correspondem ao conjunto específico
+  if (email === 'teste@gmail.com' && password === '0210') {
+      // Fecha o modal de login
+      $('#modalLogin').modal('hide');
 
-    // Verifica se o e-mail e a senha correspondem ao conjunto específico
-    if (email === 'teste@gmail.com' && password === '0210') {
-        // Fecha o modal de login
-        $('#modalLogin').modal('hide');
+      // Redireciona para a página crud.html
+      window.location.href = "crud";
+  } else {
+      alert('E-mail ou senha incorretos. Por favor, tente novamente.');
+  }
 
-        // Redireciona para a página crud.html
-        window.location.href = "crud.html";
-    } else {
-        alert('E-mail ou senha incorretos. Por favor, tente novamente.');
-    }
-
-    // Impede o envio do formulário
-    return false;
+  return false;
 }
-
-// Seleciona o elemento de formulário
-var form = document.getElementById('loginForm');
-
-// Adiciona um listener para o evento de submit
-form.addEventListener('submit', validateLogin);
-
 loadItens()
