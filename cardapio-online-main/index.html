@@ -192,7 +192,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="loginForm">
+                <form id="loginForm" onsubmit="return validateLogin()">
                     <div class="form-group">
                         <label for="inputEmail">Email</label>
                         <input type="email" class="form-control" id="inputEmail" placeholder="Seu email">
@@ -208,59 +208,6 @@
     </div>
 </div>
 
-<!-- Modal de Cadastro de Comida -->
-<div class="modal fade" id="modalCadastroComida" tabindex="-1" role="dialog" aria-labelledby="modalCadastroComidaLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modalCadastroComidaLabel">Cadastro de Prato</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label>Categoria:</label>
-                        <select id="Categoria" class="form-control">
-                            <option value="-1">...</option>
-                            <option value="AC">Burguers</option>
-                            <option value="AL">Pizzas</option>
-                            <option value="AP">Churrasco</option>
-                            <option value="AM">Steaks</option>
-                            <option value="BA">Bebidas</option>
-                            <option value="CE">Sobremesas</option>  
-                        </select>
-                    </div>
-                </div>
-
-
-                    <div class="form-group">
-                        <label for="inputNome">Nome da Comida:</label>
-                        <input type="text" class="form-control" id="inputNome" placeholder="Nome da Comida">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inputPreco">Preço:</label>
-                        <input type="text" class="form-control" id="inputPreco" placeholder="Preço">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputImagem">Imagem:</label>
-                        <input type="file" class="form-control-file" id="inputImagem">
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary"id="saveB">Salvar</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-info" id="updateButton">Atualizar</button>
-                <button type="button" class="btn btn-danger" id="deleteButton">Deletar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!-- Footer -->
