@@ -1,8 +1,8 @@
 const modal = document.querySelector('.modal-container')
 const tbody = document.querySelector('tbody')
 const sNome = document.querySelector('#m-nome')
-const sFuncao = document.querySelector('#m-funcao')
-const sSalario = document.querySelector('#m-salario')
+const sCategoria = document.querySelector('#m-categoria')
+const sPreco = document.querySelector('#m-salario')
 const btnSalvar = document.querySelector('#btnSalvar')
 
 let itens
@@ -18,14 +18,14 @@ function openModal(edit = false, crud = 0) {
   }
 
   if (edit) {
-    sNome.value = itens[crud].nome
+    sNome.value = itens[cru].nome
     sFuncao.value = itens[crud].funcao
-    sSalario.value = itens[crud].salario
+    sPreco.value = itens[crud].preco
     id = crud
   } else {
     sNome.value = ''
-    sFuncao.value = ''
-    sSalario.value = ''
+    sCategoria.value = ''
+    sPreco.value = ''
   }
   
 }
@@ -46,8 +46,8 @@ function insertItem(item, crud) {
 
   tr.innerHTML = `
     <td>${item.nome}</td>
-    <td>${item.funcao}</td>
-    <td>R$ ${item.salario}</td>
+    <td>${item.categoria}</td>
+    <td>R$ ${item.preco}</td>
     <td class="acao">
       <button onclick="editItem(${crud})"><i class='bx bx-edit' ></i></button>
     </td>
@@ -60,7 +60,7 @@ function insertItem(item, crud) {
 
 btnSalvar.onclick = e => {
   
-  if (sNome.value == '' || sFuncao.value == '' || sSalario.value == '') {
+  if (sNome.value == '' || sCategoria.value == '' || sPreco.value == '') {
     return
   }
 
@@ -68,10 +68,10 @@ btnSalvar.onclick = e => {
 
   if (id !== undefined) {
     itens[id].nome = sNome.value
-    itens[id].funcao = sFuncao.value
-    itens[id].salario = sSalario.value
+    itens[id].categoria = sCategoria.value
+    itens[id].preco = sPreco.value
   } else {
-    itens.push({'nome': sNome.value, 'funcao': sFuncao.value, 'salario': sSalario.value})
+    itens.push({'nome': sNome.value, 'categoria': sCategoria.value, 'salario': sPreco.value})
   }
 
   setItensBD()
@@ -93,25 +93,37 @@ function loadItens() {
 const getItensBD = () => JSON.parse(localStorage.getItem('dbfunc')) ?? []
 const setItensBD = () => localStorage.setItem('dbfunc', JSON.stringify(itens))
 
-
-function validateLogin(event) {
-  // Impede o comportamento padrão de envio do formulário
-  event.preventDefault();
-  var usuarioValido = true; 
-  var email = document.getElementById('inputEmail').value;
-  var password = document.getElementById('inputPassword').value;
-
-  // Verifica se o e-mail e a senha correspondem ao conjunto específico
-  if (email === 'teste@gmail.com' && password === '0210') {
-      // Fecha o modal de login
-      $('#modalLogin').modal('hide');
-
-      // Redireciona para a página crud.html
-      window.location.href = "crud";
-  } else {
-      alert('E-mail ou senha incorretos. Por favor, tente novamente.');
-  }
-
-  return false;
-}
 loadItens()
+
+
+// Exemplo de adicionar um novo item à tabela após inclusão
+function adicionarNaTabela(nome, categoria, preco) {
+  let tbody = document.querySelector('.divTable table tbody');
+  let newRow = `<tr>
+                  <td>${nome}</td>
+                  <td>${categoria}</td>
+                  <td>${preco}</td>
+                  <td class="acao">Editar</td>
+                  <td class="acao">Excluir</td>
+                </tr>`;
+  tbody.innerHTML += newRow;
+}
+
+// Exemplo de chamada após salvar um novo item
+btnSalvar.addEventListener('click', function(event) {
+  event.preventDefault();
+  let nome = document.getElementById('m-nome').value;
+  let categoria = document.getElementById('m-categoria').value;
+  let preco = document.getElementById('m-salario').value;
+
+  // Chame sua função de criar novo produto aqui, e então adicione à tabela
+  createProduct(categoria, { "name": nome, "category": categoria, "price": preco });
+
+  // Limpe os campos do formulário modal
+  document.getElementById('m-nome').value = '';
+  document.getElementById('m-categoria').value = '';
+  document.getElementById('m-salario').value = '';
+
+  // Adicione à tabela
+  adicionarNaTabela(nome, categoria, preco);
+});

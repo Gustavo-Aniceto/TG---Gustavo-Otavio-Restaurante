@@ -24,7 +24,8 @@
         "select-name": "off"
       }
     ],
-    "compat-api/css": "off"
+    "compat-api/css": "off",
+    "button-type": "off"
   },
   "browserslist": [
     "defaults",
