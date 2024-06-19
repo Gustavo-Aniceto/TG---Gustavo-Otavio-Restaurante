@@ -180,6 +180,11 @@ tbody tr td.acao {
   border-left: none;
   border-right: none;
 }
+#previewImage {
+  max-width: 100%;
+  max-height: 100px; /* Define a altura máxima da imagem */
+  display: none;
+}
 
 .modal button {
   width: 100%;

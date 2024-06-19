@@ -1,136 +1,145 @@
-const modal = document.querySelector('.modal-container')
-const tbody = document.querySelector('tbody')
-const sNome = document.querySelector('#m-nome')
-const sCategoria = document.querySelector('#m-categoria')
-const sPreco = document.querySelector('#m-salario')
-const btnSalvar = document.querySelector('#btnSalvar')
+const apiUrl = 'http://localhost:3000/produtos';
+const modal = document.querySelector('.modal-container');
+const tbody = document.querySelector('tbody');
+const sNome = document.querySelector('#m-nome');
+const sCategoria = document.querySelector('#m-categoria');
+const sPreco = document.querySelector('#m-salario');
+const btnSalvar = document.querySelector('#btnSalvar');
 
-let itens
-let id
+let itens = [];
+let id;
 
+// Função para abrir o modal
 function openModal(edit = false, crud = 0) {
-  modal.classList.add('active')
+  modal.style.display = 'block';
 
+  // Fechar modal clicando fora da área do modal
   modal.onclick = e => {
-    if (e.target.className.indexOf('modal-container') !== -1) {
-      modal.classList.remove('active')
+    if (e.target === modal) {
+      fecharModal();
     }
-  }
+  };
 
+  // Preencher campos se estiver editando
   if (edit) {
-    sNome.value = itens[cru].nome
-    sFuncao.value = itens[crud].funcao
-    sPreco.value = itens[crud].preco
-    sImagem.value = itens[crud].imagem
-    id = crud
+    sNome.value = itens[crud].nome;
+    sCategoria.value = itens[crud].categoria;
+    sPreco.value = itens[crud].preco;
+    // Implemente a lógica para preencher a imagem, se necessário
+    id = crud;
   } else {
-    sNome.value = ''
-    sCategoria.value = ''
-    sPreco.value = ''
-    sImagem.value = ''
+    sNome.value = '';
+    sCategoria.value = '';
+    sPreco.value = '';
+    // Implemente a lógica para limpar a imagem, se necessário
+    id = undefined;
   }
   
+  carregarCategorias();
 }
 
-function editItem(crud) {
-
-  openModal(true, crud)
+// Função para fechar o modal
+function fecharModal() {
+  modal.style.display = 'none';
+  document.getElementById('produtoForm').reset();
+  document.getElementById('previewImage').style.display = 'none';
+  id = undefined;
 }
 
-function deleteItem(crud) {
-  itens.splice(crud, 1)
-  setItensBD()
-  loadItens()
+// Carregar categorias dinamicamente do servidor
+function carregarCategorias() {
+  fetch('http://localhost:3000/categorias')
+    .then(response => response.json())
+    .then(data => {
+      sCategoria.innerHTML = ''; // Limpa as opções existentes
+      data.forEach(categoria => {
+        const option = document.createElement('option');
+        option.value = categoria.nome;
+        option.textContent = categoria.nome;
+        sCategoria.appendChild(option);
+      });
+    });
 }
 
-function insertItem(item, crud) {
-  let tr = document.createElement('tr')
-
-  tr.innerHTML = `
-    <td>${item.nome}</td>
-    <td>${item.categoria}</td>
-    <td>R$ ${item.preco}</td>
-    <td>${item.imagem}</td>
-    <td class="acao">
-      <button onclick="editItem(${crud})"><i class='bx bx-edit' ></i></button>
-    </td>
-    <td class="acao">
-      <button onclick="deleteItem(${crud})"><i class='bx bx-trash'></i></button>
-    </td>
-  `
-  tbody.appendChild(tr)
+// Função para listar produtos na tabela
+function listarProdutos() {
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      tbody.innerHTML = ''; // Limpa o conteúdo da tabela
+      itens = data; // Atualiza a lista de itens
+      data.forEach((produto, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${produto.nome}</td>
+          <td>${produto.categoria}</td>
+          <td>${produto.preco}</td>
+          <td>${produto.imagem ? `<img src="http://localhost:3000/${produto.imagem}" width="100">` : 'Nenhuma imagem'}</td>
+          <td class="acao"><button onclick="editarProduto(${index})">Editar</button></td>
+          <td class="acao"><button onclick="deletarProduto(${produto.id})">Excluir</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    });
 }
 
+// Função para salvar um produto
 btnSalvar.onclick = e => {
-  
-  if (sNome.value == '' || sCategoria.value == '' || sPreco.value == '' || sImagem.value == '') {
-    return
-  }
-
   e.preventDefault();
 
-  if (id !== undefined) {
-    itens[id].nome = sNome.value
-    itens[id].categoria = sCategoria.value
-    itens[id].preco = sPreco.value
-    itens[id].imagem = sImagem.value
-  } else {
-    itens.push({'nome': sNome.value, 'categoria': sCategoria.value, 'salario': sPreco.value, 'imagem': sImagem.value})
+  if (sNome.value === '' || sCategoria.value === '' || sPreco.value === '') {
+    return;
   }
 
-  setItensBD()
+  const formData = new FormData(document.getElementById('produtoForm'));
 
-  modal.classList.remove('active')
-  loadItens()
-  id = undefined
-}
+  if (id !== undefined) {
+    // Editar produto existente
+    fetch(`${apiUrl}/${itens[id].id}`, {
+      method: 'PUT',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert(data.message);
+      listarProdutos();
+      fecharModal();
+    });
+  } else {
+    // Adicionar novo produto
+    fetch(apiUrl, {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert(data.message);
+      listarProdutos();
+      fecharModal();
+    });
+  }
+};
 
-function loadItens() {
-  itens = getItensBD()
-  tbody.innerHTML = ''
-  itens.forEach((item, crud) => {
-    insertItem(item, crud)
+// Função para deletar um produto
+function deletarProduto(id) {
+  fetch(`${apiUrl}/${id}`, {
+    method: 'DELETE'
   })
-
+  .then(response => response.json())
+  .then(data => {
+    alert(data.message);
+    listarProdutos();
+  });
 }
 
-const getItensBD = () => JSON.parse(localStorage.getItem('dbfunc')) ?? []
-const setItensBD = () => localStorage.setItem('dbfunc', JSON.stringify(itens))
-
-loadItens()
-
-
-// Exemplo de adicionar um novo item à tabela após inclusão
-function adicionarNaTabela(nome, categoria, preco,imagem) {
-  let tbody = document.querySelector('.divTable table tbody');
-  let newRow = `<tr>
-                  <td>${nome}</td>
-                  <td>${categoria}</td>
-                  <td>${preco}</td>
-                  <td>${imagem}</td>
-                  <td class="acao">Editar</td>
-                  <td class="acao">Excluir</td>
-                </tr>`;
-  tbody.innerHTML += newRow;
+// Função para editar um produto
+function editarProduto(index) {
+  id = index;
+  openModal(true, index);
 }
 
-// Exemplo de chamada após salvar um novo item
-btnSalvar.addEventListener('click', function(event) {
-  event.preventDefault();
-  let nome = document.getElementById('m-nome').value;
-  let categoria = document.getElementById('m-categoria').value;
-  let preco = document.getElementById('m-salario').value;
-  let imagem = document.getElementById('m-imagem').value;
+// Carregar categorias ao inicializar a página
+carregarCategorias();
 
-  // Chame sua função de criar novo produto aqui, e então adicione à tabela
-  createProduct(categoria, { "name": nome, "category": categoria, "price": preco, "imagem":imagem });
-
-  // Limpe os campos do formulário modal
-  document.getElementById('m-nome').value = '';
-  document.getElementById('m-categoria').value = '';
-  document.getElementById('m-salario').value = '';
-  document.getElementById('m-imagem').value = '';
-
-  // Adicione à tabela
-  adicionarNaTabela(nome, categoria, preco, imagem);
-});
+// Carregar produtos ao inicializar a página
+listarProdutos();
