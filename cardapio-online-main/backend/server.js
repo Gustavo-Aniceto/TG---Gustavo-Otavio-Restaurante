@@ -17,8 +17,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'sua_senha',
-    database: 'minha_loja'
+    password: '021003Gu.',
+    database: 'gorestaurante'
 });
 
 db.connect((err) => {
