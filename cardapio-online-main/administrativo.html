@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Administrativa</title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/fontawesome.css">
     <link rel="stylesheet" href="./css/animate.css">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/responsivo.css">
     <link rel="stylesheet" href="./css/style.css">
-    <title>Area Administrativa</title>
     <link rel="icon" type="image/png" href="./img/logo.png">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="header">
       <span>Cadastro de Alimentos</span>
-      <button onclick="openModal()" id="new">Incluir</button>
+      <button onclick="openModal()" id="new">Incluir Produto</button>
     </div>
 
     <div class="divTable">
@@ -29,8 +29,8 @@
             <th>Categoria</th>
             <th>Preço</th>
             <th>Imagem</th>
-            <th class="acao">Editar</th>
-            <th class="acao">Excluir</th>
+            <th class="acao"><i class="fas fa-edit"></i>Editar</th>
+            <th class="acao"><i class='bx bx-trash'></i>Excluir</th>
           </tr>
         </thead>
         <tbody>
@@ -40,22 +40,22 @@
 
     <div class="modal-container" id="modal-container">
       <div class="modal">
-        <form id="produtoForm">
+        <form id="produtoForm" action="/script.js" method="POST">
           <label for="m-nome">Nome</label>
           <input id="m-nome" name="nome" type="text" required />
 
           <label for="m-categoria">Categoria</label>
           <select id="m-categoria" name="categoria" required>
+            <option value="">Selecione</option>
             <option value="churrasco">Burguers</option>
-            <option value="bebidas">Pizza</option>
-            <option value="steaks">Churrasco</option>
-            <option value="sobremesas">Steaks</option>
-            <option value="bebidas">Bebidas</option>
+            <option value="pizza">Pizza</option>
+            <option value="steaks">Steaks</option>
             <option value="sobremesas">Sobremesas</option>
+            <option value="bebidas">Bebidas</option>
           </select>
 
-          <label for="m-salario">Preço</label>
-          <input id="m-salario" name="preco" type="number" required />
+          <label for="m-preco">Preço</label>
+          <input id="m-preco" name="preco" type="number" required />
           
           <label for="m-imagem">Imagem</label>
           <input type="file" id="fileInput" name="imagem" accept="image/*" style="display: none;" />
@@ -63,93 +63,14 @@
           <br><br>
           <img id="previewImage" src="" alt="Pré-visualização da Imagem" style="max-width: 100%; display: none;" />
 
-          <button type="submit" id="btnSalvar">SALVAR</button>
+          <button type="submit" id="btnSalvar"onclick="salvarProduto()">SALVAR</button>
+
           <button type="button" onclick="fecharModal()">Fechar</button>
         </form>
       </div>
     </div>
 
   </div>
-  <script>
-    const apiUrl = 'http://localhost:3000/produtos';
-
-    document.getElementById('chooseImageButton').addEventListener('click', function() {
-        document.getElementById('fileInput').click();
-    });
-
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const previewImage = document.getElementById('previewImage');
-                previewImage.src = e.target.result;
-                previewImage.style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    document.getElementById('produtoForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const formData = new FormData(this);
-
-        fetch(apiUrl, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            listarProdutos();
-            fecharModal();
-        });
-    });
-
-    function listarProdutos() {
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const produtosTable = document.querySelector('tbody');
-                produtosTable.innerHTML = '';
-                data.forEach(produto => {
-                    const row = produtosTable.insertRow();
-                    row.insertCell(0).innerText = produto.nome;
-                    row.insertCell(1).innerText = produto.categoria;
-                    row.insertCell(2).innerText = produto.preco;
-                    row.insertCell(3).innerHTML = produto.imagem ? `<img src="http://localhost:3000/${produto.imagem}" width="100">` : 'Nenhuma imagem';
-                    const editarCell = row.insertCell(4);
-                    editarCell.innerHTML = `<button onclick="editarProduto(${produto.id})">Editar</button>`;
-                    const excluirCell = row.insertCell(5);
-                    excluirCell.innerHTML = `<button onclick="deletarProduto(${produto.id})">Excluir</button>`;
-                });
-            });
-    }
-
-    function deletarProduto(id) {
-        fetch(`${apiUrl}/${id}`, {
-            method: 'DELETE'
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            listarProdutos();
-        });
-    }
-
-    function editarProduto(id) {
-        // Implementar lógica de edição de produto
-    }
-
-    function openModal() {
-        document.getElementById('modal-container').style.display = 'block';
-    }
-
-    function fecharModal() {
-        document.getElementById('modal-container').style.display = 'none';
-    }
-
-    listarProdutos();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
