@@ -79,40 +79,42 @@ function listarProdutos() {
 
 // Function to save a product (insert or update)
 function salvarProduto() {
-  const formData = new FormData(document.getElementById('produtoForm'));
-
-  if (id !== undefined) {
-    // Edit existing product
-    fetch(`${apiUrl}/${itens[id].id}`, {
-      method: 'PUT',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      alert(data.message);
-      listarProdutos();
-      fecharModal();
-    })
-    .catch(error => {
-      console.error('Erro ao editar produto:', error);
-      alert('Erro ao editar produto. Verifique o console para mais detalhes.');
-    });
-  } else {
-    // Add new product
-    fetch(apiUrl, {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      alert(data.message);
-      listarProdutos();
-      fecharModal();
-    })
-    .catch(error => {
-      console.error('Erro ao adicionar produto:', error);
-      alert('Erro ao adicionar produto. Verifique o console para mais detalhes.');
-    });
+        const formData = new FormData(document.getElementById('produtoForm'));
+      
+        if (id !== undefined) {
+          // Editing existing product
+          fetch(`${apiUrl}/${itens[id].id}`, {
+            method: 'PUT',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.message);
+            listarProdutos();
+            fecharModal();
+            id = undefined; // Reset id after editing
+          })
+          .catch(error => {
+            console.error('Erro ao editar produto:', error);
+            alert('Erro ao editar produto. Verifique o console para mais detalhes.');
+          });
+        } else {
+          // Adding new product
+          fetch(apiUrl, {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            alert(data.message);
+            listarProdutos();
+            fecharModal();
+            id = undefined; // Reset id after adding
+          })
+          .catch(error => {
+            console.error('Erro ao adicionar produto:', error);
+            alert('Erro ao adicionar produto. Verifique o console para mais detalhes.');
+          });
   }
 }
 
@@ -163,9 +165,11 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
 
 // Event listener for the save button
 document.getElementById('btnSalvar').addEventListener('click', function(event) {
-  event.preventDefault(); // Prevent default form submission
-  salvarProduto(); // Call the saveProduct function when the button is clicked
-});
+    event.preventDefault(); // Prevent default form submission
+  
+    // Call the saveProduct function when the button is clicked
+    salvarProduto();
+  });
 
 function listarProdutosPorCategoria(categoria) {
     fetch(apiUrl)  // Assumindo que apiUrl é a URL da sua API que retorna todos os produtos
