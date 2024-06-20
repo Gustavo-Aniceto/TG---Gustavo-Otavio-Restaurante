@@ -58,7 +58,7 @@ button {
 }
 
 .divTable::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
   background-color: whitesmoke; 
 }
 

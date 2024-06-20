@@ -166,3 +166,43 @@ document.getElementById('btnSalvar').addEventListener('click', function(event) {
   event.preventDefault(); // Prevent default form submission
   salvarProduto(); // Call the saveProduct function when the button is clicked
 });
+
+function listarProdutosPorCategoria(categoria) {
+    fetch(apiUrl)  // Assumindo que apiUrl é a URL da sua API que retorna todos os produtos
+        .then(response => response.json())
+        .then(data => {
+            const produtosPorCategoria = data.filter(produto => produto.categoria === categoria);
+            const containerCategoria = document.getElementById(`itensCardapio-${categoria}`);
+            containerCategoria.innerHTML = '';  // Limpa o conteúdo atual
+
+            produtosPorCategoria.forEach(produto => {
+                const cardProduto = `
+                    <div class="col-4 col-md-3">
+                        <div class="card">
+                            <img src="${produto.imagem}" class="card-img-top" alt="${produto.nome}">
+                            <div class="card-body">
+                                <h5 class="card-title">${produto.nome}</h5>
+                                <p class="card-text">${produto.descricao}</p>
+                                <p class="card-text">Preço: R$ ${produto.preco.toFixed(2)}</p>
+                                <a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                containerCategoria.innerHTML += cardProduto;
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao obter produtos por categoria:', error);
+        });
+}
+
+// Função para carregar todos os produtos ao iniciar a página
+document.addEventListener('DOMContentLoaded', function() {
+    listarProdutosPorCategoria('burgers');
+    listarProdutosPorCategoria('pizzas');
+    listarProdutosPorCategoria('churrasco');
+    listarProdutosPorCategoria('steaks');
+    listarProdutosPorCategoria('bebidas');
+    listarProdutosPorCategoria('sobremesas');
+});
