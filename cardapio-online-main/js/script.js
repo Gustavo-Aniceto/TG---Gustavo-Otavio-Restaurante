@@ -138,8 +138,23 @@ function editarProduto(index) {
   openModal(true, index);
 }
 
-// Carregar categorias ao inicializar a página
-carregarCategorias();
+// Carregar categorias e produtos ao inicializar a página
+document.addEventListener('DOMContentLoaded', function() {
+  carregarCategorias();
+  listarProdutos();
+});
 
-// Carregar produtos ao inicializar a página
-listarProdutos();
+document.getElementById('chooseImageButton').addEventListener('click', function() {
+  document.getElementById('fileInput').click();
+});
+
+document.getElementById('fileInput').addEventListener('change', function(event) {
+  const previewImage = document.getElementById('previewImage');
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+      previewImage.src = e.target.result;
+      previewImage.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});

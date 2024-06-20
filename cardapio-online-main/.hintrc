@@ -25,7 +25,8 @@
       }
     ],
     "compat-api/css": "off",
-    "button-type": "off"
+    "button-type": "off",
+    "no-inline-styles": "off"
   },
   "browserslist": [
     "defaults",

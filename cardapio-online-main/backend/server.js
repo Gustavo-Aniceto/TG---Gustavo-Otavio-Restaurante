@@ -82,6 +82,15 @@ app.delete('/produtos/:id', (req, res) => {
     });
 });
 
+// Rota para listar categorias
+app.get('/api/categorias', (req, res) => {
+    let sql = 'SELECT id, nome FROM categorias';
+    db.query(sql, (err, results) => {
+        if (err) throw err;
+        res.json(results);
+    });
+});
+
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
