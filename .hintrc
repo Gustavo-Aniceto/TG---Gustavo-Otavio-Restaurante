@@ -3,20 +3,6 @@
     "development"
   ],
   "hints": {
-    "axe/name-role-value": [
-      "default",
-      {
-        "button-name": "off",
-        "link-name": "off"
-      }
-    ],
-    "disown-opener": "off",
-    "axe/text-alternatives": [
-      "default",
-      {
-        "image-alt": "off"
-      }
-    ],
     "axe/forms": [
       "default",
       {
@@ -24,23 +10,19 @@
         "select-name": "off"
       }
     ],
-    "compat-api/css": [
+    "axe/text-alternatives": [
       "default",
       {
-        "ignore": [
-          "-ms-filter"
-        ]
+        "image-alt": "off"
       }
-    ]
-  },
-  "browserslist": [
-    "defaults",
-    "not ie 11",
-    "not and_chr <= 121",
-    "not chrome <= 121",
-    "not edge <= 121",
-    "not firefox <= 122",
-    "not safari <= 17.3",
-    "not samsung <= 23"
-  ]
+    ],
+    "axe/name-role-value": [
+      "default",
+      {
+        "link-name": "off",
+        "button-name": "off"
+      }
+    ],
+    "disown-opener": "off"
+  }
 }

@@ -4,10 +4,12 @@ const mysql = require('mysql');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
-
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const app = express();
 const port = 3000;
 
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +25,8 @@ const db = mysql.createConnection({
 
 db.connect((err) => {
     if (err) {
-        throw err;
+        console.error('Erro ao conectar ao banco de dados:', err);
+        return;
     }
     console.log('Conectado ao banco de dados MySQL');
 });
@@ -40,7 +43,41 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Rotas CRUD
+// Endpoint de login
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    const query = 'SELECT * FROM users WHERE username = ?';
+    db.query(query, [username], (err, results) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erro ao consultar o banco de dados.' });
+        }
+
+        if (results.length > 0) {
+            const user = results[0];
+            
+            // Verificar a senha
+            bcrypt.compare(password, user.password, (err, isMatch) => {
+                if (err) {
+                    return res.status(500).json({ message: 'Erro ao verificar a senha.' });
+                }
+
+                if (isMatch) {
+                    // Gerar um token JWT
+                    const token = jwt.sign({ id: user.id, username: user.username }, secretKey, { expiresIn: '1h' });
+
+                    return res.json({ message: 'Login bem-sucedido!', token });
+                } else {
+                    return res.status(401).json({ message: 'Senha incorreta.' });
+                }
+            });
+        } else {
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
+        }
+    });
+});
+
+// Rotas CRUD para produtos
 
 // Create (Inserir)
 app.post('/produtos', upload.single('imagem'), (req, res) => {
@@ -48,7 +85,7 @@ app.post('/produtos', upload.single('imagem'), (req, res) => {
     let imagem = req.file ? req.file.path : null;
     let sql = 'INSERT INTO produtos (nome, categoria, preco, imagem) VALUES (?, ?, ?, ?)';
     db.query(sql, [produto.nome, produto.categoria, produto.preco, imagem], (err, result) => {
-        if (err) throw err;
+        if (err) return res.status(500).json({ message: 'Erro ao inserir produto.' });
         res.send({ message: 'Produto inserido com sucesso!', id: result.insertId });
     });
 });
@@ -57,7 +94,7 @@ app.post('/produtos', upload.single('imagem'), (req, res) => {
 app.get('/produtos', (req, res) => {
     let sql = 'SELECT * FROM produtos';
     db.query(sql, (err, results) => {
-        if (err) throw err;
+        if (err) return res.status(500).json({ message: 'Erro ao listar produtos.' });
         res.send(results);
     });
 });
@@ -68,7 +105,7 @@ app.put('/produtos/:id', upload.single('imagem'), (req, res) => {
     let imagem = req.file ? req.file.path : produto.imagem;
     let sql = 'UPDATE produtos SET nome = ?, categoria = ?, preco = ?, imagem = ? WHERE id = ?';
     db.query(sql, [produto.nome, produto.categoria, produto.preco, imagem, req.params.id], (err, result) => {
-        if (err) throw err;
+        if (err) return res.status(500).json({ message: 'Erro ao atualizar produto.' });
         res.send({ message: 'Produto atualizado com sucesso!' });
     });
 });
@@ -77,7 +114,7 @@ app.put('/produtos/:id', upload.single('imagem'), (req, res) => {
 app.delete('/produtos/:id', (req, res) => {
     let sql = 'DELETE FROM produtos WHERE id = ?';
     db.query(sql, [req.params.id], (err, result) => {
-        if (err) throw err;
+        if (err) return res.status(500).json({ message: 'Erro ao deletar produto.' });
         res.send({ message: 'Produto deletado com sucesso!' });
     });
 });
@@ -86,11 +123,30 @@ app.delete('/produtos/:id', (req, res) => {
 app.get('/api/categorias', (req, res) => {
     let sql = 'SELECT id, nome FROM categorias';
     db.query(sql, (err, results) => {
-        if (err) throw err;
+        if (err) return res.status(500).json({ message: 'Erro ao listar categorias.' });
         res.json(results);
     });
 });
 
+// Rota para verificar se um usuário específico existe
+app.get('/check-user/:username', (req, res) => {
+    const { username } = req.params;
+    
+    const query = 'SELECT * FROM users WHERE username = ?';
+    db.query(query, [username], (err, results) => {
+        if (err) {
+            return res.status(500).json({ message: 'Erro ao consultar o banco de dados.' });
+        }
+
+        if (results.length > 0) {
+            return res.json(results[0]);  // Retorna o primeiro (e único) resultado
+        } else {
+            return res.status(404).json({ message: 'Usuário não encontrado.' });
+        }
+    });
+});
+
+// Iniciar o servidor
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
