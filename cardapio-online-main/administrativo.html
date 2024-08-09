@@ -1,76 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área Administrativa</title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/fontawesome.css">
-    <link rel="stylesheet" href="./css/animate.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/responsivo.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="icon" type="image/png" href="./img/logo.png">
-    <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <link rel="stylesheet" href="css/administrativo.css">
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <span>Cadastro de Alimentos</span>
-      <button onclick="openModal()" id="new">Incluir Produto</button>
+    <div class="container">
+        <!-- Botão de Alternância do Menu Lateral para Dispositivos Móveis -->
+        <button id="toggle-sidebar" class="btn-yellow">☰ Menu</button>
+
+        <!-- Menu Lateral -->
+        <nav class="sidebar" id="sidebar">
+            <h2>ADMINISTRAÇÃO</h2>
+            <ul>
+                <li><a href="#produtos" class="btn-yellow" onclick="loadContent('produtos')">Produtos</a></li>
+                <li><a href="#usuarios" class="btn-yellow" onclick="loadContent('usuarios')">Usuários</a></li>
+                <li><a href="#historico" class="btn-yellow" onclick="loadContent('historico')">Histórico</a></li>
+                <li><a href="#sair" class="btn-yellow" id="sair-btn">Sair</a></li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content" id="main-content">
+            <h1>Bem-vindo à Área Administrativa</h1>
+            <p>Utilize o menu à esquerda para navegar pelas seções administrativas.</p>
+        </main>
     </div>
 
-    <div class="divTable">
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Preço</th>
-            <th>Imagem</th>
-            <th class="acao"><i class="fas fa-edit"></i>Editar</th>
-            <th class="acao"><i class='bx bx-trash'></i>Excluir</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="modal-container" id="modal-container">
-      <div class="modal">
-        <form id="produtoForm" action="/script.js" method="POST">
-          <label for="m-nome">Nome</label>
-          <input id="m-nome" name="nome" type="text" required />
-
-          <label for="m-categoria">Categoria</label>
-          <select id="m-categoria" name="categoria" required>
-            <option value="">Selecione</option>
-            <option value="churrasco">Burguers</option>
-            <option value="pizza">Pizza</option>
-            <option value="steaks">Steaks</option>
-            <option value="sobremesas">Sobremesas</option>
-            <option value="bebidas">Bebidas</option>
-          </select>
-
-          <label for="m-preco">Preço</label>
-          <input id="m-preco" name="preco" type="number" required />
-          
-          <label for="m-imagem">Imagem</label>
-          <input type="file" id="fileInput" name="imagem" accept="image/*" style="display: none;" />
-          <button type="button" id="chooseImageButton">Escolher Imagem</button>
-          <br><br>
-          <img id="previewImage" src="" alt="Pré-visualização da Imagem" style="max-width: 100%; display: none;" />
-
-          <button type="submit" id="btnSalvar"onclick="salvarProduto()">SALVAR</button>
-
-          <button type="button" onclick="fecharModal()">Fechar</button>
+<!-- Modal para Adicionar/Editar Produtos -->
+<div class="modal-container" style="display: none;">
+    <div class="modal">
+        <form id="produtoForm">
+            <label for="m-nome">Nome do Produto:</label>
+            <input type="text" id="m-nome" name="nome" required>
+            
+            <label for="m-categoria">Categoria:</label>
+            <select id="m-categoria" name="categoria" required></select>
+            
+            <label for="m-preco">Preço:</label>
+            <input type="number" id="m-preco" name="preco" required>
+            
+            <label for="fileInput">Imagem do Produto:</label>
+            <input type="file" id="fileInput" name="imagem">
+            <button type="button" id="chooseImageButton">Escolher Imagem</button>
+            <img id="previewImage" style="display: none; width: 100px; margin-top: 10px;">
+            
+            <button type="submit" id="btnSalvar" class="btn-yellow">Salvar</button>
+            <button type="button" onclick="fecharModal()">Cancelar</button>
         </form>
-      </div>
     </div>
+</div>
 
-  </div>
-  <script src="script.js"></script>
+
+    <script src="js/administrativo.js"></script>
+    <script src="js/cadastroproduto.js"></script> <!-- Novo arquivo para o CRUD -->
 </body>
 </html>
