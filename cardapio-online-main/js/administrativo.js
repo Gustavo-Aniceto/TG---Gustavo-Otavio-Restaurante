@@ -9,12 +9,10 @@ function loadContent(page) {
                 <div id="produtos-actions">
                     <button class="btn-yellow" id="btnCadastrarProduto">Cadastrar Novo Produto</button>
                     <button class="btn-yellow" id="btnVerProdutos">Ver Produtos Cadastrados</button>
+                    <button class="btn-yellow" id="btnCadastrarCategorias">Cadastrar Nova Categoria</button>
                 </div>
                 <div id="produtos-list"></div> <!-- Contêiner para a tabela de produtos -->
             `;
-            break;
-        case 'categorias':
-            content = '<h1>Gestão de Categorias</h1><p>Configurações de categorias dos produtos...</p>';
             break;
         case 'usuarios':
             content = '<h1>Gestão de Usuários</h1><p>Lista de usuários, permissões e mais...</p>';
@@ -88,4 +86,32 @@ function renderFormCadastroProduto() {
         };
         reader.readAsDataURL(file);
     });
+}
+
+function renderFormCadastrocategoria() {
+    const modal = document.getElementById('modal-categoria');
+    modal.style.display = 'flex'; // Torna o modal visível e centralizado (assumindo que o estilo CSS esteja configurado corretamente)
+
+    <h1>Gestão de Categorias</h1>
+<button class="btn-yellow" onclick="abrirModal('modal-categoria')">Adicionar Nova Categoria</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome da Categoria</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody id="categorias-tbody"></tbody>
+</table>
+
+
+    document.getElementById('categoriaForm').onsubmit = e => {
+        e.preventDefault();
+        salvarCategoria();
+    };
+}
+function fecharModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style.display = 'none'; // Oculta o modal
 }

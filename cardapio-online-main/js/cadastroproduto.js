@@ -6,6 +6,7 @@ const sCategoria = document.querySelector('#m-categoria');
 const sPreco = document.querySelector('#m-preco');
 const btnSalvar = document.querySelector('#btnSalvar');
 
+
 let itens = [];
 let id; // ID do produto a ser editado
 
@@ -24,12 +25,20 @@ function openModal(edit = false, index = undefined) {
     sCategoria.value = itens[index].categoria;
     sPreco.value = itens[index].preco;
     id = itens[index].id; // Atualiza o ID do produto
+
+    // Exibir a imagem existente se houver
+    if (itens[index].imagem) {
+      const previewImage = document.getElementById('previewImage');
+      previewImage.src = `http://localhost:3000/${itens[index].imagem}`;
+      previewImage.style.display = 'block';
+    }
   } else {
     // Limpar o modal para novo produto
     sNome.value = '';
     sCategoria.value = '';
     sPreco.value = '';
     id = undefined;
+    document.getElementById('previewImage').style.display = 'none';
   }
 
   carregarCategorias();
@@ -45,85 +54,80 @@ function fecharModal() {
 
 // Função para carregar categorias dinamicamente do servidor
 function carregarCategorias() {
-  const sCategoria = document.querySelector('#m-categoria');
   fetch('http://localhost:3000/categorias')
-      .then(response => response.json())
-      .then(data => {
-          sCategoria.innerHTML = '';
-          data.forEach(categoria => {
-              const option = document.createElement('option');
-              option.value = categoria.nome;
-              option.textContent = categoria.nome;
-              sCategoria.appendChild(option);
-          });
-      })
-      .catch(error => {
-          console.error('Erro ao carregar categorias:', error);
+    .then(response => response.json())
+    .then(data => {
+      sCategoria.innerHTML = '';
+      data.forEach(categoria => {
+        const option = document.createElement('option');
+        option.value = categoria.nome;
+        option.textContent = categoria.nome;
+        sCategoria.appendChild(option);
       });
+    })
+    .catch(error => {
+      console.error('Erro ao carregar categorias:', error);
+    });
 }
 
 // Função para listar produtos
 function listarProdutos() {
   fetch(apiUrl)
-      .then(response => {
-          if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-      })
-      .then(data => {
-          console.log('Dados recebidos:', data);
-          const tbody = document.getElementById('produtos-tbody');
-          tbody.innerHTML = '';
-          itens = data;
-          data.forEach((produto, index) => {
-              const row = document.createElement('tr');
-              row.innerHTML = `
-                  <td>${produto.nome}</td>
-                  <td>${produto.categoria}</td>
-                  <td>${produto.preco}</td>
-                  <td>${produto.imagem ? `<img src="http://localhost:3000/${produto.imagem}" width="100">` : 'Nenhuma imagem'}</td>
-                  <td><button onclick="editarProduto(${index})">Editar</button></td>
-                  <td><button onclick="deletarProduto(${produto.id})">Excluir</button></td>
-              `;
-              tbody.appendChild(row);
-          });
-      })
-      .catch(error => {
-          console.error('Erro ao listar produtos:', error);
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Dados recebidos:', data);
+      const tbody = document.getElementById('produtos-tbody');
+      tbody.innerHTML = '';
+      itens = data;
+      data.forEach((produto, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${produto.nome}</td>
+          <td>${produto.categoria}</td>
+          <td>${produto.preco}</td>
+          <td>${produto.imagem ? `<img src="http://localhost:3000/${produto.imagem}" width="100">` : 'Nenhuma imagem'}</td>
+          <td><button onclick="editarProduto(${index})">Editar</button></td>
+          <td><button onclick="deletarProduto(${produto.id})">Excluir</button></td>
+        `;
+        tbody.appendChild(row);
       });
+    })
+    .catch(error => {
+      console.error('Erro ao listar produtos:', error);
+    });
 }
 
 // Função para adicionar a tabela ao DOM e listar produtos
 function mostrarProdutos() {
   const produtosList = document.getElementById('produtos-list');
   produtosList.innerHTML = `
-      <table>
-          <thead>
-              <tr>
-                  <th>Nome</th>
-                  <th>Categoria</th>
-                  <th>Preço</th>
-                  <th>Imagem</th>
-                  <th>Ações</th>
-              </tr>
-          </thead>
-          <tbody id="produtos-tbody"></tbody>
-      </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Categoria</th>
+          <th>Preço</th>
+          <th>Imagem</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="produtos-tbody"></tbody>
+    </table>
   `;
-  
+
   // Listar produtos
   listarProdutos();
 }
 
-// Configurar eventos dos botões
-document.getElementById('btnCadastrarProduto').onclick = () => {
-  renderFormCadastroProduto();
-};
-
-document.getElementById('btnVerProdutos').onclick = () => {
-  mostrarProdutos();
-};
+// Função para editar um produto
+function editarProduto(index) {
+  openModal(true, index);
+}
 
 // Salvar um produto (inserir ou atualizar)
 btnSalvar.onclick = e => {
@@ -195,11 +199,6 @@ function deletarProduto(produtoId) {
       alert('Erro ao deletar produto. Verifique o console para mais detalhes.');
     });
   }
-}
-
-// Função para editar um produto
-function editarProduto(index) {
-  openModal(true, index);
 }
 
 // Carregar categorias e produtos ao inicializar a página
