@@ -60,7 +60,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav ml-auto mr-auto wow bounceInDown delay-01s">
-                        <li class="nav-item"><a href="#reservas" class="nav-link"><b>Tirar Dúvidas</b></a></li>
                         <li class="nav-item"><a href="#cardapio" class="nav-link"><b>Cardápio</b></a></li>
                         <li class="nav-item"><a href="login.html" class="nav-link"><b>ADM</b></a></li>
                     </ul>
@@ -83,12 +82,12 @@
                     <div class="d-flex text-banner">
                         <h1 class="wow fadeInLeft"><b>Gustavo & Otavio <b class="color-primary">Restaurante.</b></b></h1>
                         <p class="wow fadeInLeft delay-02s">
-                            Projeto de trabalho de conclusão de curso, desenvolvido por Gustavo Aniceto e Otavio Barreiro, com a orientação do Professor Marco
+                            Seja bem-vindo ao nosso Restaurante! Aqui você terá o melhor atendimento, unindo praticidade e tecnologia!
                         </p>
                         <div class="wow fadeInUp delay-05s">
                             <a class="btn btn-yellow mt-4 mr-3" href="#cardapio">Ver cardápio</a>
                             <a href="#" class="btn btn-white btn-icon-left mt-4" id="btnLigar">
-                                <span class="icon-left"><i class="fa fa-phone"></i></span>(11)2459-3209
+                                <span class="icon-left"><i class="fa fa-phone"></i></span>(Número do Restaurante)
                             </a>
                         </div>
                     </div>
@@ -118,128 +117,89 @@
     <section class="cardapio" id="cardapio">
         <div class="background-cardapio"></div>
         <div class="container">
-            <div class="row" id="itensCardapio-burgers">
-                <!-- Produtos da categoria Burgers serão inseridos aqui -->
+            <!-- Categoria Burgers -->
+            <div class="categoria" id="burgers">
+                <h2>Burgers</h2>
+                <div class="row" id="itensCardapio-burgers">
+                    <!-- Produtos da categoria Burgers serão inseridos aqui -->
+                </div>
             </div>
     
-            <div class="row" id="itensCardapio-pizzas">
-                <!-- Produtos da categoria Pizzas serão inseridos aqui -->
+            <!-- Categoria Pizzas -->
+            <div class="categoria" id="pizzas">
+                <h2>Pizzas</h2>
+                <div class="row" id="itensCardapio-pizzas">
+                    <!-- Produtos da categoria Pizzas serão inseridos aqui -->
+                </div>
             </div>
     
-            <div class="row" id="itensCardapio-bebidas">
-                <!-- Produtos da categoria Bebidas serão inseridos aqui -->
+            <!-- Categoria Bebidas -->
+            <div class="categoria" id="bebidas">
+                <h2>Bebidas</h2>
+                <div class="row" id="itensCardapio-bebidas">
+                    <!-- Produtos da categoria Bebidas serão inseridos aqui -->
+                </div>
             </div>
     
             <!-- Adicione mais categorias conforme necessário -->
         </div>
     </section>
 
-    <!-- Seção de Pagamento -->
-    <section class="pagamento" id="pagamento">
-        <div class="container">
-            <h2>Escolha o Método de Pagamento</h2>
-            <form id="payment-form">
-                <label for="payment-method">Método de Pagamento:</label>
-                <select id="payment-method">
-                    <option value="">Selecione</option>
-                    <option value="credit-card">Cartão de Crédito</option>
-                    <option value="paypal">PayPal</option>
-                </select>
-
-                <div id="credit-card-section" class="payment-section" style="display:none;">
-                    <h3>Pagamento com Cartão de Crédito</h3>
-                    <div id="card-element"></div>
-                    <button id="submit" type="submit">Pagar com Cartão</button>
-                </div>
-
-                <div id="paypal-section" class="payment-section" style="display:none;">
-                    <h3>Pagamento com PayPal</h3>
-                    <div id="paypal-button-container"></div>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- Scripts -->
+    <!-- Scripts de Inicialização -->
     <script>
-        // Stripe Configuration
-        const stripe = Stripe('sua-chave-publica'); // Substitua pela sua chave pública
-        const elements = stripe.elements();
-        const card = elements.create('card');
-        card.mount('#card-element');
-
-        document.getElementById('payment-method').addEventListener('change', function() {
-            const method = this.value;
-            document.querySelectorAll('.payment-section').forEach(section => {
-                section.style.display = 'none';
+        $(document).ready(function() {
+            // Inicialização de WOW.js para animações
+            new WOW().init();
+    
+            // Carregar produtos via API ou outra lógica
+            loadProducts();
+        });
+    
+        function loadProducts() {
+            // Supondo que você tenha uma função que carrega produtos dinamicamente para cada categoria
+            // A lógica para buscar e exibir os produtos pode ser inserida aqui
+    
+            // Exemplo de como produtos podem ser inseridos dinamicamente
+            const burgers = [
+                { nome: "Burger Clássico", descricao: "Delicioso burger com queijo e bacon.", preco: "R$25,00" },
+                { nome: "Burger Vegano", descricao: "Burger feito com ingredientes 100% vegetais.", preco: "R$28,00" },
+            ];
+    
+            const pizzas = [
+                { nome: "Pizza Margherita", descricao: "Molho de tomate, queijo e manjericão.", preco: "R$40,00" },
+                { nome: "Pizza Pepperoni", descricao: "Molho de tomate, queijo e pepperoni.", preco: "R$45,00" },
+            ];
+    
+            const bebidas = [
+                { nome: "Refrigerante", descricao: "Lata de refrigerante 350ml.", preco: "R$5,00" },
+                { nome: "Água", descricao: "Garrafa de água mineral 500ml.", preco: "R$3,00" },
+            ];
+    
+            // Inserir produtos na página
+            insertProducts('burgers', burgers);
+            insertProducts('pizzas', pizzas);
+            insertProducts('bebidas', bebidas);
+        }
+    
+        function insertProducts(category, products) {
+            const container = $(`#itensCardapio-${category}`);
+            products.forEach(product => {
+                const productCard = `
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card produto-card">
+                            <img src="./img/${category}.png" class="card-img-top" alt="${product.nome}">
+                            <div class="card-body">
+                                <h5 class="card-title">${product.nome}</h5>
+                                <p class="card-text">${product.descricao}</p>
+                                <p class="card-preco">${product.preco}</p>
+                                <a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.append(productCard);
             });
-            if (method === 'credit-card') {
-                document.getElementById('credit-card-section').style.display = 'block';
-            } else if (method === 'paypal') {
-                document.getElementById('paypal-section').style.display = 'block';
-            }
-        });
-
-        document.getElementById('payment-form').addEventListener('submit', async (event) => {
-            event.preventDefault();
-
-            const method = document.getElementById('payment-method').value;
-            if (method === 'credit-card') {
-                const {token, error} = await stripe.createToken(card);
-                if (error) {
-                    console.error(error);
-                    // Exiba o erro para o usuário
-                } else {
-                    // Envie o token para o servidor
-                    const response = await fetch('/api/pagar', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({token: token.id, amount: 5000}), // Exemplo: R$50,00
-                    });
-
-                    const result = await response.json();
-                    if (result.error) {
-                        console.error(result.error);
-                        // Exiba o erro para o usuário
-                    } else {
-                        // Confirme o sucesso
-                        alert('Pagamento realizado com sucesso!');
-                    }
-                }
-            } else if (method === 'paypal') {
-                // O botão PayPal já está sendo renderizado pela configuração do PayPal
-            }
-        });
-
-        // PayPal Configuration
-        paypal.Buttons({
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            currency_code: "BRL",
-                            value: '50.00' // Exemplo: R$50,00
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    fetch('/api/pagar', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({orderID: data.orderID}),
-                    }).then(response => response.json())
-                      .then(result => {
-                          alert('Pagamento realizado com sucesso!');
-                      });
-                });
-            }
-        }).render('#paypal-button-container');
+        }
     </script>
 </body>
 </html>
