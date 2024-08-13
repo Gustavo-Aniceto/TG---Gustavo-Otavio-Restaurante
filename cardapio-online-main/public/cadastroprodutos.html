@@ -33,14 +33,16 @@
             <th class="acao"><i class='bx bx-trash'></i>Excluir</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="produtos-tbody">
+          <!-- Produtos serão listados aqui -->
         </tbody>
       </table>
     </div>
 
-    <div class="modal-container" id="modal-container">
+    <!-- Modal para Adicionar/Editar Produtos -->
+    <div class="modal-container" id="modal-container" style="display: none;">
       <div class="modal">
-        <form id="produtoForm" action="/script.js" method="POST">
+        <form id="produtoForm">
           <label for="m-nome">Nome</label>
           <input id="m-nome" name="nome" type="text" required />
 
@@ -63,14 +65,14 @@
           <br><br>
           <img id="previewImage" src="" alt="Pré-visualização da Imagem" style="max-width: 100%; display: none;" />
 
-          <button type="submit" id="btnSalvar"onclick="salvarProduto()">SALVAR</button>
-
+          <button type="submit" id="btnSalvar">SALVAR</button>
           <button type="button" onclick="fecharModal()">Fechar</button>
         </form>
       </div>
     </div>
 
   </div>
-  <script src="js/cadastroproduto.js"></script>
+  <script src="js/modules/crudProdutos.js"></script>
+  <script src="js/api/produtosApi.js"></script>
 </body>
 </html>

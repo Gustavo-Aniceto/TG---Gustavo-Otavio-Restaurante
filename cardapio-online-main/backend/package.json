@@ -2,9 +2,9 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "db.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node config/db.js"
   },
   "keywords": [],
   "author": "",

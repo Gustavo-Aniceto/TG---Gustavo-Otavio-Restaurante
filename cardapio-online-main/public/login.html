@@ -11,16 +11,16 @@
         <h2>Login</h2>
         <div class="input-group">
             <label for="username">Usuário</label>
-            <input type="text" id="username" placeholder="Digite seu usuário">
+            <input type="text" id="username" placeholder="Digite seu usuário" required>
         </div>
         <div class="input-group">
             <label for="password">Senha</label>
-            <input type="password" id="password" placeholder="Digite sua senha">
+            <input type="password" id="password" placeholder="Digite sua senha" required>
         </div>
-        <button id="loginBtn">Entrar</button>
-        <div class="error-message" id="errorMessage"></div>
-    </div>
+        <button id="loginBtn" aria-label="Entrar">Entrar</button>
+        <div class="error-message" id="errorMessage" role="alert"></div>
 
+    </div>
 
     <script src="js/login.js"></script>
 </body>

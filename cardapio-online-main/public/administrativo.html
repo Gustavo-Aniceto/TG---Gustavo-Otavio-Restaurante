@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Administrativa</title>
+    <link rel="stylesheet" href="css/administrativo.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Botão de Alternância do Menu Lateral para Dispositivos Móveis -->
+        <button id="toggle-sidebar" class="btn-yellow">☰ Menu</button>
+
+        <!-- Menu Lateral -->
+        <nav class="sidebar" id="sidebar">
+            <h2>ADMINISTRAÇÃO</h2>
+            <ul>
+                <li><a href="#produtos" class="btn-yellow" onclick="loadContent('produtos')">Produtos</a></li>
+                <li><a href="#usuarios" class="btn-yellow" onclick="loadContent('usuarios')">Usuários</a></li>
+                <li><a href="#historico" class="btn-yellow" onclick="loadContent('historico')">Histórico</a></li>
+                <li><a href="#sair" class="btn-yellow" id="sair-btn">Sair</a></li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content" id="main-content">
+            <h1>Bem-vindo à Área Administrativa</h1>
+            <p>Utilize o menu à esquerda para navegar pelas seções administrativas.</p>
+        </main>
+    </div>
+
+    <!-- Modal para Adicionar/Editar Produtos -->
+    <div class="modal-container" id="modal-produto" style="display: none;">
+        <div class="modal">
+            <form id="produtoForm">
+                <label for="m-nome">Nome do Produto:</label>
+                <input type="text" id="m-nome" name="nome" required>
+                
+                <label for="m-categoria">Categoria:</label>
+                <select id="m-categoria" name="categoria" required></select>
+                
+                <label for="m-preco">Preço:</label>
+                <input type="number" id="m-preco" name="preco" required>
+                
+                <label for="fileInput">Imagem do Produto:</label>
+                <input type="file" id="fileInput" name="imagem">
+                <button type="button" id="chooseImageButton">Escolher Imagem</button>
+                <img id="previewImage" style="display: none; width: 100px; margin-top: 10px;">
+                
+                <button type="submit" id="btnSalvar" class="btn-yellow">Salvar</button>
+                <button type="button" onclick="fecharModal('modal-produto')">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Adicionar Categoria -->
+    <div class="modal-container" id="modal-categoria" style="display: none;">
+        <div class="modal">
+            <h1>Adicionar Nova Categoria</h1>
+            <form id="categoriaForm">
+                <label for="categoria-nome">Nome da Categoria:</label>
+                <input type="text" id="categoria-nome" name="nome" required>
+
+                <button type="submit" id="btnSalvarCategoria" class="btn-yellow">Salvar Categoria</button>
+                <button type="button" onclick="fecharModal('modal-categoria')" class="btn-yellow">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para Adicionar Usuário -->
+    <div class="modal-container" id="modal-usuario" style="display: none;">
+        <div class="modal">
+            <h1>Adicionar Novo Usuário</h1>
+            <form id="usuarioForm">
+                <label for="usuario-nome">Nome do Usuário:</label>
+                <input type="text" id="usuario-nome" name="nome" required>
+
+                <label for="usuario-senha">Senha:</label>
+                <input type="password" id="usuario-senha" name="senha" required>
+
+                <button type="submit" id="btnSalvarUsuario" class="btn-yellow">Salvar Usuário</button>
+                <button type="button" onclick="fecharModal('modal-usuario')" class="btn-yellow">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="js/modules/crudProdutos.js"></script>
+    <script type="module" src="js/modules/crudCategorias.js"></script>
+    <script type="module" src="js/modules/crudUsers.js"></script>
+    <script type="module" src="js/modules/modal.js"></script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

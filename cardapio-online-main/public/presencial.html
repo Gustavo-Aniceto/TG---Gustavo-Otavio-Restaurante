@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/fontawesome.css">
+    <link rel="stylesheet" href="./css/animate.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/responsivo.css">
+    <title>G&O Restaurante</title>
+    <link rel="icon" type="image/png" href="./img/logo.png">
+</head>
+<body>
+
+    <!-- Conteúdo do site -->
+
+    <section class="cardapio" id="cardapio">
+        <!-- Conteúdo do cardápio -->
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-3 col-md-3 col-sm-12 container-logo-footer">
+                    <img class="logo-footer" src="./img/logo.png" alt="Logo">
+                </div>
+                <div class="col-12 col-lg-6 col-md-6 col-sm-12 container-texto-footer">
+                    <p class="mb-0">
+                        <b>TG - Gustavo & Otavio</b>
+                    </p>
+                </div>
+                <div class="col-12 col-lg-3 col-md-3 col-sm-12 container-redes-footer"></div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para informações da mesa -->
+    <div class="modal-full hidden" id="modalCarrinho">
+
+        <div class="m-header">
+            <div class="container">
+                <a class="btn btn-white btn-sm float-right" onclick="cardapio.metodos.abrirCarrinho(false)">
+                    Fechar
+                </a>
+
+                <div class="etapas">
+                    <div class="etapa etapa1 active">1</div>
+                    <div class="etapa etapa2">2</div>
+                    <div class="etapa etapa3">3</div>
+                </div>
+                <p class="title-carrinho mt-4">
+                    <b id="lblTituloEtapa">Seu pedido:</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="m-body">
+            <div class="container">
+                <div class="row mr-0 ml-0 hidden" id="itensCarrinho">
+                    <!-- Itens do carrinho -->
+                </div>
+
+                <div class="row mr-0 ml-0 hidden" id="informacoesMesa">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Número da Mesa:</label>
+                            <input id="txtMesa" type="text" class="form-control" placeholder="Informe o número da mesa">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label>Nome do Cliente:</label>
+                            <input id="txtNomeCliente" type="text" class="form-control" placeholder="Informe o nome do cliente">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mr-0 ml-0 hidden" id="resumoCarrinho">
+                    <div class="col-12">
+                        <p class="title-carrinho mt-4">
+                            <b>Itens do pedido:</b>
+                        </p>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row" id="listaItensResumo">
+                            <!-- Resumo dos itens do carrinho -->
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <p class="title-carrinho mt-4">
+                            <b>Informações da Mesa:</b>
+                        </p>
+                    </div>
+                    <div class="col-12 item-carrinho resumo">
+                        <div class="dados-produto">
+                            <p class="texto-endereco">
+                                <b id="resumoMesa">Mesa: </b><span id="resumoNumeroMesa"></span>
+                            </p>
+                            <p class="cidade-endereco" id="resumoNomeCliente"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="m-footer">
+            <div class="container">
+                <div class="container-total text-right mb-4">
+                    <p class="mb-0">
+                        <span>Subtotal:</span>
+                        <span id="lblSubTotal">R$ 0,00</span>
+                    </p>
+
+                    <p class="mb-0 texto-total">
+                        <span><b>Total:</b></span>
+                        <span id="lblValorTotal" class="valor-total">R$ 0,00</span>
+                    </p>
+                </div>
+
+                <a class="btn btn-yellow float-right" id="btnEtapaPedido" onclick="cardapio.metodos.carregarInformacoesMesa()">
+                    Continuar
+                </a>
+
+                <a class="btn btn-yellow float-right hidden" id="btnEtapaResumo" onclick="cardapio.metodos.resumoPedido()">
+                    Revisar pedido
+                </a>
+
+                <a href="#" class="btn btn-yellow float-right hidden" id="btnEnviarPedido" target="_blank">
+                    Enviar pedido
+                </a>
+
+                <a class="btn btn-white float-right  mr-3 hidden" id="btnVoltar" onclick="cardapio.metodos.voltarEtapa()">
+                    Voltar
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./js/jquery-1.12.4.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/modernizr-3.5.0.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/wow.min.js"></script>
+    <script src="./js/dados.js"></script>
+    <script src="./js/app.js"></script>
+    <script src="./script.js"></script>
+    <script src="./js/main.js"></script>
+
+
+    <script>new WOW().init();</script>
+
+</body>
+</html>
