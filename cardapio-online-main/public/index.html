@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/responsivo.css">
     <link rel="icon" type="image/png" href="./img/logo.png">
+    <script src="./js/wow.min.js"></script>
+
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -31,6 +33,17 @@
     <script src="js/api/administrativo/modals.js"></script>
     <script src="js/api/categoriasApi.js"></script>
     <script src="js/api/login.js"></script>
+    <script type="module" src="./js/main.js"></script>
+
+
+
+<script src="public/js/wow.min.js"></script>
+<script src="public/js/bootstrap.min.js"></script>
+<script src="public/js/modernizr-3.5.0.min.js"></script>
+<script src="public/js/popper.min.js"></script>
+<script src="js/api/script.js"></script>
+
+
 
     <!-- Stripe e PayPal -->
     <script src="https://js.stripe.com/v3/"></script>
@@ -113,93 +126,14 @@
         </div>
     </section>
 
-    <!-- Cardápio -->
-    <section class="cardapio" id="cardapio">
-        <div class="background-cardapio"></div>
-        <div class="container">
-            <!-- Categoria Burgers -->
-            <div class="categoria" id="burgers">
-                <h2>Burgers</h2>
-                <div class="row" id="itensCardapio-burgers">
-                    <!-- Produtos da categoria Burgers serão inseridos aqui -->
-                </div>
-            </div>
-    
-            <!-- Categoria Pizzas -->
-            <div class="categoria" id="pizzas">
-                <h2>Pizzas</h2>
-                <div class="row" id="itensCardapio-pizzas">
-                    <!-- Produtos da categoria Pizzas serão inseridos aqui -->
-                </div>
-            </div>
-    
-            <!-- Categoria Bebidas -->
-            <div class="categoria" id="bebidas">
-                <h2>Bebidas</h2>
-                <div class="row" id="itensCardapio-bebidas">
-                    <!-- Produtos da categoria Bebidas serão inseridos aqui -->
-                </div>
-            </div>
-    
-            <!-- Adicione mais categorias conforme necessário -->
-        </div>
-    </section>
+<!-- Cardápio -->
+<section class="cardapio" id="cardapio">
+    <div class="background-cardapio"></div>
+    <div class="container">
+        <!-- Categorias e produtos serão inseridos aqui -->
+    </div>
+</section>
 
-    <!-- Scripts de Inicialização -->
-    <script>
-        $(document).ready(function() {
-            // Inicialização de WOW.js para animações
-            new WOW().init();
-    
-            // Carregar produtos via API ou outra lógica
-            loadProducts();
-        });
-    
-        function loadProducts() {
-            // Supondo que você tenha uma função que carrega produtos dinamicamente para cada categoria
-            // A lógica para buscar e exibir os produtos pode ser inserida aqui
-    
-            // Exemplo de como produtos podem ser inseridos dinamicamente
-            const burgers = [
-                { nome: "Burger Clássico", descricao: "Delicioso burger com queijo e bacon.", preco: "R$25,00" },
-                { nome: "Burger Vegano", descricao: "Burger feito com ingredientes 100% vegetais.", preco: "R$28,00" },
-            ];
-    
-            const pizzas = [
-                { nome: "Pizza Margherita", descricao: "Molho de tomate, queijo e manjericão.", preco: "R$40,00" },
-                { nome: "Pizza Pepperoni", descricao: "Molho de tomate, queijo e pepperoni.", preco: "R$45,00" },
-            ];
-    
-            const bebidas = [
-                { nome: "Refrigerante", descricao: "Lata de refrigerante 350ml.", preco: "R$5,00" },
-                { nome: "Água", descricao: "Garrafa de água mineral 500ml.", preco: "R$3,00" },
-            ];
-    
-            // Inserir produtos na página
-            insertProducts('burgers', burgers);
-            insertProducts('pizzas', pizzas);
-            insertProducts('bebidas', bebidas);
-        }
-    
-        function insertProducts(category, products) {
-            const container = $(`#itensCardapio-${category}`);
-            products.forEach(product => {
-                const productCard = `
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <div class="card produto-card">
-                            <img src="./img/${category}.png" class="card-img-top" alt="${product.nome}">
-                            <div class="card-body">
-                                <h5 class="card-title">${product.nome}</h5>
-                                <p class="card-text">${product.descricao}</p>
-                                <p class="card-preco">${product.preco}</p>
-                                <a href="#" class="btn btn-primary">Adicionar ao Carrinho</a>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.append(productCard);
-            });
-        }
-    </script>
+
 </body>
 </html>

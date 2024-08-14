@@ -230,3 +230,68 @@ td button i {
 td button i:first-child {
   margin-right: 10px;
 }
+
+.produto-card {
+  border: 1px solid #ddd;
+  border-radius: 10px; /* Bordas arredondadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.produto-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.produto-card img {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.produto-card-body {
+  padding: 15px;
+  text-align: center;
+}
+
+.produto-card-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.produto-card-price {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.produto-card button {
+  background-color: #f7b500;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.produto-card button:hover {
+  background-color: #d99600;
+}
+
+.produto-quantidade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.produto-quantidade input {
+  width: 50px;
+  text-align: center;
+  font-size: 16px;
+  margin: 0 5px;
+}

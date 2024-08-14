@@ -45,18 +45,18 @@ exports.delete = (req, res) => {
 };
 const Produto = require('../models/produto'); // Modelo do produto
 
-exports.getProdutosByCategoria = async (req, res) => {
-    try {
-        const produtos = await Produto.aggregate([
-            {
-                $group: {
-                    _id: '$categoria', // Agrupa os produtos pela categoria
-                    items: { $push: "$$ROOT" } // Empurra todos os campos do documento para a array "items"
-                }
-            }
-        ]);
-        res.json(produtos);
-    } catch (error) {
-        res.status(500).json({ message: "Erro ao buscar os produtos", error });
-    }
+// produtosController.js
+
+exports.getProdutosByCategoria = (req, res) => {
+    const categoriaId = req.params.id;
+
+    // Supondo que você esteja usando um ORM, algo como:
+    Produto.findAll({ where: { categoriaId: categoriaId } })
+        .then(produtos => {
+            res.json(produtos);
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Erro ao buscar produtos por categoria' });
+        });
 };
+
