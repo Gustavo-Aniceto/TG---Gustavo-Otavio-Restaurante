@@ -1,6 +1,6 @@
 // public/js/modules/crudCategorias.js
 
-const apiUrlCategorias = 'http://localhost:3000/api/categorias'; // URL da API
+const apiUrlCategorias = 'http://localhost:3000/api/categoriasApi.js'; // URL da API
 const modalCategoria = document.querySelector('#modal-categoria');
 const categoriaNome = document.querySelector('#categoria-nome');
 const btnSalvarCategoria = document.querySelector('#btnSalvarCategoria');
