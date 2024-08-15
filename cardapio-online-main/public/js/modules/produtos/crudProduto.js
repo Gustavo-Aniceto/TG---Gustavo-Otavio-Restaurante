@@ -1,7 +1,5 @@
-// public/js/modules/crudProdutos.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    mostrarProdutos(); // Carrega a lista de produtos ao carregar a página
+    listarProdutos(); // Carrega os produtos ao carregar a página
     carregarCategorias(); // Carrega as categorias disponíveis para seleção no modal
 });
 
@@ -80,82 +78,49 @@ function listarProdutos() {
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            const tbody = document.getElementById('produtos-tbody');
-            tbody.innerHTML = '';
+            // Limpa as seções antes de adicionar novos produtos
+            document.getElementById('itensCardapio-burgers').innerHTML = '';
+            document.getElementById('itensCardapio-pizzas').innerHTML = '';
+            document.getElementById('itensCardapio-bebidas').innerHTML = '';
+            // Adicione outras seções de categorias aqui conforme necessário
+
             itens = data;
             data.forEach((produto, index) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${produto.nome}</td>
-                    <td>${produto.categoria}</td>
-                    <td>${produto.preco}</td>
-                    <td>${produto.imagem ? `<img src="http://localhost:3000/${produto.imagem}" width="100">` : 'Nenhuma imagem'}</td>
-                    <td><button onclick="editarProduto(${index})">Editar</button></td>
-                    <td><button onclick="deletarProduto(${produto.id})">Excluir</button></td>
+                const produtoHtml = `
+                    <div class="col-12 col-lg-4 col-md-6 mb-4">
+                        <div class="card">
+                            <img src="http://localhost:3000/${produto.imagem}" class="card-img-top" alt="${produto.nome}">
+                            <div class="card-body">
+                                <h5 class="card-title">${produto.nome}</h5>
+                                <p class="card-text">${produto.categoria}</p>
+                                <p class="card-text">R$${produto.preco.toFixed(2)}</p>
+                            </div>
+                        </div>
+                    </div>
                 `;
-                tbody.appendChild(row);
+
+                // Inserir o produto na seção correspondente com base na categoria
+                switch (produto.categoria.toLowerCase()) {
+                    case 'burgers':
+                        document.getElementById('itensCardapio-burgers').innerHTML += produtoHtml;
+                        break;
+                    case 'pizzas':
+                        document.getElementById('itensCardapio-pizzas').innerHTML += produtoHtml;
+                        break;
+                    case 'bebidas':
+                        document.getElementById('itensCardapio-bebidas').innerHTML += produtoHtml;
+                        break;
+                    // Adicione mais casos conforme as categorias existentes
+                    default:
+                        console.warn(`Categoria não reconhecida: ${produto.categoria}`);
+                        break;
+                }
             });
         })
         .catch(error => {
             console.error('Erro ao listar produtos:', error);
         });
 }
-
-// Função para mostrar produtos na tabela
-function mostrarProdutos() {
-    const produtosList = document.getElementById('produtos-list');
-    produtosList.innerHTML = `
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Categoria</th>
-                    <th>Preço</th>
-                    <th>Imagem</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="produtos-tbody"></tbody>
-        </table>
-    `;
-
-    // Listar produtos
-    listarProdutos();
-}
-
-// Função para editar um produto
-function editarProduto(index) {
-    openModal(true, index);
-}
-
-// Função para salvar um produto (inserir ou atualizar)
-btnSalvar.onclick = e => {
-    e.preventDefault();
-
-    if (sNome.value === '' || sCategoria.value === '' || sPreco.value === '') {
-        alert('Por favor, preencha todos os campos.');
-        return;
-    }
-
-    const formData = new FormData(document.getElementById('produtoForm'));
-
-    const fetchOptions = {
-        method: id ? 'PUT' : 'POST',
-        body: formData
-    };
-
-    fetch(id ? `${apiUrl}/${id}` : apiUrl, fetchOptions)
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message || 'Produto salvo com sucesso!');
-            listarProdutos();
-            fecharModal();
-        })
-        .catch(error => {
-            console.error('Erro ao salvar produto:', error);
-            alert('Erro ao salvar produto. Verifique o console para mais detalhes.');
-        });
-};
 
 // Função para deletar um produto
 function deletarProduto(produtoId) {
