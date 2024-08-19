@@ -1,6 +1,6 @@
 // public/js/components/userList.js
 
-import { getUsers } from '../api/usersApi.js';
+import { getUsers } from '../api/users.js';
 
 /**
  * Exibe a lista de usuários na página.

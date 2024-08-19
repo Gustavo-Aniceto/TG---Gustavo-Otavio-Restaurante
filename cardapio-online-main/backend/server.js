@@ -8,6 +8,9 @@ const app = express();
 const port = 3000;
 const Stripe = require('stripe');
 const stripe = Stripe('Aniceto');
+const authRoutes = require('./routes/auth');
+const authMiddleware = require('./middlewares/authMiddleware');
+
 
 // Middleware
 app.use(cors());
@@ -15,6 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
 // Rotas
 const produtosRoutes = require('./routes/produtos');
@@ -26,6 +30,7 @@ const usersRoutes = require('./routes/users');
 app.use('/api/produtos', produtosRoutes);
 app.use('/api/categorias', categoriasRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/auth', authRoutes);
 
 
 app.post('/api/pagar', async (req, res) => {
@@ -55,6 +60,15 @@ app.post('/api/create-checkout-session', async (req, res) => {
     });
 
     res.json({ id: session.id });
+});
+
+app.get('/api/protected-route', authMiddleware, (req, res) => {
+    res.status(200).json({ message: 'Acesso autorizado!' });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
 });
 
 

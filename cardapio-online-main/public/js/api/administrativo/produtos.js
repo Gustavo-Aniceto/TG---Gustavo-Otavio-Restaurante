@@ -1,6 +1,10 @@
 // public/js/api/administrativo/produtos.js
-function renderFormCadastroProduto() {
-    const contentArea = document.getElementById('main-content');
+
+import { carregarCategorias } from './categorias.js';
+import { fecharModal } from '../../modals/modalUtils.js';
+
+export function renderFormCadastroProduto() {
+    const contentArea = document.getElementById('modal-content');
     contentArea.innerHTML = `
         <h1>Cadastrar Novo Produto</h1>
         <form id="produtoForm">
@@ -31,6 +35,7 @@ function renderFormCadastroProduto() {
 
     document.getElementById('btnVoltarProdutos').onclick = () => {
         loadContent('produtos');
+        fecharModal('modal-produto');
     };
 
     document.getElementById('chooseImageButton').onclick = () => {

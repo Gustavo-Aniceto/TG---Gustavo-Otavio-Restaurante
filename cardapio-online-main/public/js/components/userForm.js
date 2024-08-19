@@ -1,6 +1,6 @@
 // public/js/components/userForm.js
 
-import { createUser, updateUser, getUserById } from '../api/usersApi.js';
+import { createUser, updateUser, getUserById } from '../api/users.js';
 
 /**
  * Preenche o formulário para editar um usuário.

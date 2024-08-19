@@ -1,5 +1,10 @@
 // public/js/api/administrativo/loadContent.js
-function loadContent(page) {
+
+import { renderFormCadastroProduto } from './produtos.js';
+import { carregarCategorias } from './categorias.js';
+import { abrirModal } from '../../modals/modalUtils.js';
+
+export function loadContent(page) {
     const contentArea = document.getElementById('main-content');
     let content = '';
 
@@ -10,10 +15,19 @@ function loadContent(page) {
                 <div id="produtos-actions">
                     <button class="btn-yellow" id="btnCadastrarProduto">Cadastrar Novo Produto</button>
                     <button class="btn-yellow" id="btnVerProdutos">Ver Produtos Cadastrados</button>
-                    <button class="btn-yellow" id="btnCadastrarCategorias">Cadastrar Nova Categoria</button>
                 </div>
                 <div id="produtos-list"></div> <!-- Contêiner para a tabela de produtos -->
             `;
+            contentArea.innerHTML = content;
+
+            document.getElementById('btnCadastrarProduto').onclick = () => {
+                abrirModal('modal-produto');
+                renderFormCadastroProduto();
+            };
+
+            document.getElementById('btnVerProdutos').onclick = () => {
+                mostrarProdutos(); 
+            };
             break;
         case 'usuarios':
             content = `
@@ -30,23 +44,20 @@ function loadContent(page) {
                 </table>
             `;
             contentArea.innerHTML = content;
-
-            // Carregar usuários já cadastrados
             carregarUsuarios();
 
-            // Configurar botão para abrir modal de cadastro de novo usuário
             document.getElementById('btnAdicionarUsuario').onclick = () => {
                 abrirModal('modal-usuario');
             };
             break;
         case 'historico':
             content = '<h1>Histórico de Atividades</h1><p>Registro de atividades dos usuários...</p>';
+            contentArea.innerHTML = content;
             break;
         case 'categorias':
             content = `
                 <h1>Gestão de Categorias</h1>
                 <button class="btn-yellow" id="btnAdicionarCategoria">Adicionar Nova Categoria</button>
-
                 <table>
                     <thead>
                         <tr>
@@ -57,24 +68,11 @@ function loadContent(page) {
                     <tbody id="categorias-tbody"></tbody>
                 </table>
             `;
+            contentArea.innerHTML = content;
             carregarCategorias();
             break;
         default:
             content = '<h1>Seja bem-vindo à Área Administrativa</h1><h3>Utilize o menu à esquerda para navegar pelas seções administrativas.</h3>';
-    }
-
-    contentArea.innerHTML = content;
-
-    if (page === 'produtos') {
-        document.getElementById('btnCadastrarProduto').onclick = () => {
-            renderFormCadastroProduto();
-        };
-
-        document.getElementById('btnVerProdutos').onclick = () => {
-            mostrarProdutos(); 
-        };
-        document.getElementById('btnCadastrarCategorias').onclick = () => {
-            renderFormCadastrocategoria(); 
-        };
+            contentArea.innerHTML = content;
     }
 }

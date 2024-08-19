@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Administrativa</title>
+    <link rel="stylesheet" href="/cardapio-online-main/public/css/administrativo.css">
+    <link rel="icon" type="image/png" href="/cardapio-online-main/public/img/logo.png">
+</head>
+<body>
+    <div class="container">
+        <!-- Botão de Alternância do Menu Lateral para Dispositivos Móveis -->
+        <button id="toggle-sidebar" class="btn-yellow">☰ Menu</button>
+
+        <!-- Menu Lateral -->
+        <nav class="sidebar" id="sidebar">
+            <h2>ADMINISTRAÇÃO</h2>
+            <ul>
+                <li><a href="#produtos" class="btn-yellow">Produtos</a></li>
+                <li><a href="#usuarios" class="btn-yellow">Usuários</a></li>
+                <li><a href="#historico" class="btn-yellow">Histórico</a></li>
+                <li><a href="#categorias" class="btn-yellow">Categorias</a></li>
+                <li><a href="#sair" class="btn-yellow" id="sair-btn">Sair</a></li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content" id="main-content">
+            <h1>Bem-vindo à Área Administrativa</h1>
+            <p>Utilize o menu à esquerda para navegar pelas seções administrativas.</p>
+        </main>
+
+        <!-- Modais -->
+        <!-- Modal de Produtos -->
+        <div id="modal-produto" class="modal-container" style="display: none;">
+            <div class="modal">
+                <span class="btn-close">X</span>
+                <div id="modal-content-produto">
+                    <!-- Conteúdo do modal para produtos será inserido aqui -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Usuários -->
+        <div id="modal-usuario" class="modal-container" style="display: none;">
+            <div class="modal">
+                <span class="btn-close">X</span>
+                <div id="modal-content-usuario">
+                    <!-- Conteúdo do modal para usuários será inserido aqui -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Histórico -->
+        <div id="modal-historico" class="modal-container" style="display: none;">
+            <div class="modal">
+                <span class="btn-close">X</span>
+                <div id="modal-content-historico">
+                    <!-- Conteúdo do modal para histórico será inserido aqui -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Categorias -->
+        <div id="modal-categoria" class="modal-container" style="display: none;">
+            <div class="modal">
+                <span class="btn-close">X</span>
+                <div id="modal-content-categoria">
+                    <!-- Conteúdo do modal para categorias será inserido aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="/cardapio-online-main/public/js/modules/modals/modalUtils.js"></script>
+    <script type="module" src="/cardapio-online-main/public/js/api/administrativo/loadContent.js"></script>
+    <script type="module" src="/cardapio-online-main/public/js/api/administrativo/produtos.js"></script>
+    <script type="module" src="/cardapio-online-main/public/js/main.js"></script>
+    
+</body>
+</html>
