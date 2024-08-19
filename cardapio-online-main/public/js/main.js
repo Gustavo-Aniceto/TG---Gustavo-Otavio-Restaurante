@@ -1,8 +1,8 @@
-import { abrirModal, configurarBotaoFechar } from './modules/modals/modal.js';
-import { renderFormCadastroProduto } from './api/administrativo/produtos.js';
-import { renderFormCadastroUsuario } from './api/administrativo/usuario.js'; // Adapte o caminho se necessário
-import { renderFormCadastroCategoria } from './api/administrativo/categorias.js'; // Adapte o caminho se necessário
-import { renderHistorico } from './api/administrativo/historico.js'; // Adapte o caminho se necessário
+import { renderFormCadastroProduto } from './modals/produtoModal.js';
+import { renderFormCadastroUsuario } from './modals/usuarioModal.js';
+import { renderFormCadastroCategoria } from './modals/categoriaModal.js';
+import { renderHistorico } from './modals/historicoModal.js';
+import { abrirModal } from './modals/modalUtils.js';
 import { loadContent } from './api/administrativo/loadContent.js';
 
 // Inicializa o aplicativo
@@ -15,6 +15,7 @@ function init() {
         });
     });
 
+    // Configurar eventos dos botões
     const btnCadastrarProduto = document.getElementById('btnCadastrarProduto');
     const btnVerProdutos = document.getElementById('btnVerProdutos');
     const btnCadastrarCategorias = document.getElementById('btnCadastrarCategorias');
@@ -25,12 +26,12 @@ function init() {
         btnCadastrarProduto.addEventListener('click', () => {
             abrirModal('modal-produto');
             renderFormCadastroProduto();
-            configurarBotaoFechar('modal-produto');
         });
     }
 
     if (btnVerProdutos) {
         btnVerProdutos.addEventListener('click', () => {
+            // Código para exibir produtos cadastrados
             mostrarProdutos(); 
         });
     }
@@ -39,7 +40,6 @@ function init() {
         btnCadastrarCategorias.addEventListener('click', () => {
             abrirModal('modal-categoria');
             renderFormCadastroCategoria();
-            configurarBotaoFechar('modal-categoria');
         });
     }
 
@@ -47,7 +47,6 @@ function init() {
         btnAdicionarUsuario.addEventListener('click', () => {
             abrirModal('modal-usuario');
             renderFormCadastroUsuario();
-            configurarBotaoFechar('modal-usuario');
         });
     }
 
@@ -55,7 +54,6 @@ function init() {
         btnHistorico.addEventListener('click', () => {
             abrirModal('modal-historico');
             renderHistorico();
-            configurarBotaoFechar('modal-historico');
         });
     }
 }
@@ -63,7 +61,5 @@ function init() {
 // Executar a função de inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', () => {
     init();
-    
-    // Carregar a página inicial por padrão
-    loadContent('produtos');
+    loadContent('produtos');  // Carregar produtos por padrão
 });
