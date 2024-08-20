@@ -4,13 +4,12 @@ const cors = require('cors');
 const path = require('path');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const app = express();
 const port = 3000;
 const Stripe = require('stripe');
 const stripe = Stripe('Aniceto');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middlewares/authMiddleware');
-
+const app = express();
 
 // Middleware
 app.use(cors());
@@ -31,6 +30,11 @@ app.use('/api/produtos', produtosRoutes);
 app.use('/api/categorias', categoriasRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/auth', authRoutes);
+
+// Rota para a página inicial
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 
 app.post('/api/pagar', async (req, res) => {
@@ -66,9 +70,11 @@ app.get('/api/protected-route', authMiddleware, (req, res) => {
     res.status(200).json({ message: 'Acesso autorizado!' });
 });
 
+
+// Inicia o servidor na porta 3000
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
 
 

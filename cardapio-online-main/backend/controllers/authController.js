@@ -3,41 +3,57 @@ const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario');
 const authConfig = require('../config/auth');
 
-// Controlador para login
-exports.login = async (req, res) => {
-    const { usuario, senha } = req.body;
 
-    try {
-        const user = await Usuario.findOne({ where: { usuario } });
-        if (!user) {
-            return res.status(404).json({ error: 'Usuário não encontrado' });
-        }
+const authController = {
+    register: (req, res) => {
+        const { usuario, senha } = req.body;
 
-        const isPasswordValid = await bcrypt.compare(senha, user.senha);
-        if (!isPasswordValid) {
-            return res.status(401).json({ error: 'Senha incorreta' });
-        }
+        bcrypt.hash(senha, 10, (err, hash) => {
+            if (err) {
+                return res.status(500).send('Erro ao encriptar a senha');
+            }
 
-        const token = jwt.sign({ id: user.id }, authConfig.secret, {
-            expiresIn: authConfig.expiresIn,
+            const novoUsuario = {
+                usuario,
+                senha: hash
+            };
+
+            Usuario.criar(novoUsuario, (err, result) => {
+                if (err) {
+                    return res.status(500).send('Erro ao criar o usuário');
+                }
+                res.status(201).send('Usuário criado com sucesso');
+            });
         });
+    },
 
-        return res.json({ auth: true, token });
-    } catch (error) {
-        return res.status(500).json({ error: 'Erro no servidor' });
+    login: (req, res) => {
+        const { usuario, senha } = req.body;
+
+        Usuario.buscarPorUsuario(usuario, (err, results) => {
+            if (err) {
+                return res.status(500).send('Erro ao buscar usuário');
+            }
+
+            if (results.length === 0) {
+                return res.status(404).send('Usuário não encontrado');
+            }
+
+            const usuarioEncontrado = results[0];
+
+            bcrypt.compare(senha, usuarioEncontrado.senha, (err, isMatch) => {
+                if (err) {
+                    return res.status(500).send('Erro ao comparar senhas');
+                }
+
+                if (!isMatch) {
+                    return res.status(401).send('Senha incorreta');
+                }
+
+                res.send('Login realizado com sucesso');
+            });
+        });
     }
 };
 
-// Controlador para registro de novos usuários (opcional)
-exports.register = async (req, res) => {
-    const { usuario, senha } = req.body;
-
-    try {
-        const hash = await bcrypt.hash(senha, 10);
-        const newUser = await Usuario.create({ usuario, senha: hash });
-
-        return res.status(201).json(newUser);
-    } catch (error) {
-        return res.status(500).json({ error: 'Erro no servidor' });
-    }
-};
+module.exports = authController;
