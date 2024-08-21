@@ -1,5 +1,3 @@
-const express = require('express');
-const router = express.Router();
 const db = require('../config/db');
 
 // Criar uma nova categoria
@@ -57,5 +55,3 @@ exports.getCategoriasComProdutos = async (req, res) => {
         res.status(500).json({ message: "Erro ao buscar categorias e produtos", error });
     }
 };
-
-module.exports = router;

@@ -34,7 +34,8 @@
           "@-ms-viewport"
         ]
       }
-    ]
+    ],
+    "meta-viewport": "off"
   },
   "browserslist": [
     "defaults",

@@ -1,5 +1,3 @@
-// public/js/api/administrativo/login.js
-
 document.getElementById('loginBtn').addEventListener('click', async function() {
     // Obtém os valores dos campos de entrada
     const username = document.getElementById('username').value;
@@ -24,21 +22,22 @@ document.getElementById('loginBtn').addEventListener('click', async function() {
 
         // Verifica se a resposta foi bem-sucedida
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            const errorData = await response.json();
+            throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorData.message}`);
         }
 
         const result = await response.json();
 
-        if (result && response.ok) {
+        if (result.token) {
             // Armazena o token no localStorage e redireciona para a página administrativa
             localStorage.setItem('token', result.token);
             window.location.href = 'administrativo.html';
         } else {
             // Exibe uma mensagem de erro se não for possível fazer login
-            errorMessage.textContent = result.message || 'Erro desconhecido';
+            errorMessage.textContent = 'Erro ao fazer login.';
         }
     } catch (error) {
         console.error('Erro na requisição:', error);
-        errorMessage.textContent = 'Erro ao fazer login.';
+        errorMessage.textContent = error.message || 'Erro ao fazer login.';
     }
 });

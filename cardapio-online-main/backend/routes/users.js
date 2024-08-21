@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const produtosController = require('./controllers/produtosController');
-const categoriasController = require('./controllers/categoriasController');
+
 const usersController = require('./controllers/usersController');
 
 // Rotas de Usuários

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagar Novo Pagamento</title>
+  <link rel="stylesheet" href="/cardapio-online-main/public/css/pagamento.css">
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <section>
+    <div class="product">
+      <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+      <div class="description">
+        <h3>Stubborn Attachments</h3>
+        <h5>$20.00</h5>
+      </div>
+    </div>
+    <form action="/create-checkout-session" method="POST">
+      <button type="submit" id="checkout-button">Checkout</button>
+    </form>
+  </section>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const stripe = Stripe('pk_live_51PqGkSIlAYfslHZlN5EiITO5HiuUV75zFegMQulz10585943RS7gzJINWyyyYbONA0Y5REUux840SOsw5qpRvRPz008siePjbp'); // Substitua 'YOUR_PUBLIC_KEY' pela sua chave pública do Stripe
+
+      const checkoutButton = document.getElementById('checkout-button');
+      checkoutButton.addEventListener('click', async (event) => {
+        event.preventDefault();
+
+        const response = await fetch('/create-checkout-session', {
+          method: 'POST',
+        });
+
+        const sessionId = await response.json().id;
+
+        const result = await stripe.redirectToCheckout({ sessionId });
+
+        if (result.error) {
+          alert(result.error.message);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

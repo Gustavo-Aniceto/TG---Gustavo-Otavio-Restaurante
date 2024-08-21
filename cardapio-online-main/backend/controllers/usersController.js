@@ -1,5 +1,3 @@
-const express = require('express');
-const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/db');
@@ -38,7 +36,7 @@ exports.login = (req, res) => {
 };
 
 // Listar todos os usuários
-exports.read = (req, res) => {
+exports.listUsers = (req, res) => {
     const sql = 'SELECT * FROM usuarios';
     db.query(sql, (err, results) => {
         if (err) return res.status(500).json({ message: 'Erro ao listar usuários.' });
@@ -66,5 +64,3 @@ exports.delete = (req, res) => {
         res.send({ message: 'Usuário deletado com sucesso!' });
     });
 };
-
-module.exports = router;

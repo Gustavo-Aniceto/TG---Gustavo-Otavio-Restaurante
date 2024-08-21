@@ -2,7 +2,12 @@ const Produto = require('../models/produto');
 const Categoria = require('../models/categoria');
 
 exports.renderAdminDashboard = (req, res) => {
-    res.render('admin/index'); // Renderiza a página principal do admin
+    try {
+        res.render('admin/index'); // Renderiza a página principal do admin
+    } catch (error) {
+        console.error('Erro ao renderizar o painel administrativo:', error);
+        res.status(500).send('Erro ao renderizar o painel administrativo.');
+    }
 };
 
 exports.renderProdutos = async (req, res) => {
