@@ -141,10 +141,45 @@ function adicionarAoCarrinho(produtoId) {
     // Adicione aqui a lógica de adicionar ao carrinho
 }
 
-// Chama a função para carregar categorias e produtos quando a página for carregada
-$(document).ready(function() {
-    carregarCategoriasEProdutos();
-});
+async function carregarCategoriaEProdutos() {
+    try {
+        // Faz a solicitação para obter categorias
+        const categoriasResponse = await fetch('/api/categorias');
+        const categorias = await categoriasResponse.json();
+
+        // Para cada categoria, busca os produtos associados
+        for (let categoria of categorias) {
+            const produtosResponse = await fetch(`/api/produtos?categoriaId=${categoria.id}`);
+            const produtos = await produtosResponse.json();
+
+            // Renderiza a categoria e os produtos na interface
+            renderizarCategoriaEProdutos(categoria, produtos);
+        }
+    } catch (error) {
+        console.error('Erro ao carregar categorias e produtos:', error);
+    }
+}
+
+// Função para renderizar a categoria e seus produtos na interface
+function renderizarCategoriaEProdutos(categoria, produtos) {
+    const categoriaContainer = document.createElement('div');
+    categoriaContainer.classList.add('categoria-container');
+
+    const categoriaTitulo = document.createElement('h3');
+    categoriaTitulo.textContent = categoria.nome;
+    categoriaContainer.appendChild(categoriaTitulo);
+
+    const produtosLista = document.createElement('ul');
+    produtos.forEach(produto => {
+        const produtoItem = document.createElement('li');
+        produtoItem.textContent = produto.nome;
+        produtosLista.appendChild(produtoItem);
+    });
+
+    categoriaContainer.appendChild(produtosLista);
+    document.getElementById('conteudo').appendChild(categoriaContainer);
+}
+
 
 
 // Exportando as funções para uso em outros módulos

@@ -20,24 +20,6 @@ export async function getUsers() {
 }
 
 /**
- * Obtém um usuário específico pelo ID.
- * @param {number|string} id - O ID do usuário.
- * @returns {Promise<Object>} A promessa que resolve com os dados do usuário.
- */
-export async function getUserById(id) {
-    try {
-        const response = await fetch(`${API_URL}/${id}`);
-        if (!response.ok) {
-            throw new Error(`Erro ao obter usuário: ${response.statusText}`);
-        }
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        throw error;
-    }
-}
-
-/**
  * Cria um novo usuário.
  * @param {Object} userData - Os dados do novo usuário.
  * @returns {Promise<Object>} A promessa que resolve com os dados do usuário criado.

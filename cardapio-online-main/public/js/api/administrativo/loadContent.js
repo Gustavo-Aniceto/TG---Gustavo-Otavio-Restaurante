@@ -1,8 +1,9 @@
 // public/js/api/administrativo/loadContent.js
 
 import { renderFormCadastroProduto } from './produtos.js';
-import { carregarCategorias } from './categorias.js';
+import { carregarCategorias } from '../categorias.js';
 import { abrirModal } from '../../modules/modals/modalUtils.js';
+import { getUsers } from '../users.js';
 
 
 export function loadContent(page) {
@@ -45,7 +46,7 @@ export function loadContent(page) {
                 </table>
             `;
             contentArea.innerHTML = content;
-            carregarUsuarios();
+            getUsers();
 
             document.getElementById('btnAdicionarUsuario').onclick = () => {
                 abrirModal('modal-usuario');

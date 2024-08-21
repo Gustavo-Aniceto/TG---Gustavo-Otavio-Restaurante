@@ -1,6 +1,6 @@
 // public/js/api/administrativo/produtos.js
 
-import { carregarCategorias } from './categorias.js';
+import { carregarCategorias } from '../categorias.js';
 import { fecharModal } from '../../modules/modals/modalUtils.js';
 
 export function renderFormCadastroProduto() {
@@ -53,3 +53,4 @@ export function renderFormCadastroProduto() {
         reader.readAsDataURL(file);
     });
 }
+
