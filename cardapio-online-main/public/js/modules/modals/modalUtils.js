@@ -1,4 +1,4 @@
-// public/js/modules/modals/modal.js
+
 
 export function fecharModal(modalId) {
     const modal = document.getElementById(modalId);
@@ -7,15 +7,6 @@ export function fecharModal(modalId) {
     }
 }
 
-export function configurarBotaoFechar(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        const closeButton = modal.querySelector('.btn-close');
-        if (closeButton) {
-            closeButton.onclick = () => fecharModal(modalId);
-        }
-    }
-}
 export function abrirModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {

@@ -1,9 +1,11 @@
-import { renderFormCadastroProduto } from './modals/produtoModal.js';
-import { renderFormCadastroUsuario } from './modals/usuarioModal.js';
-import { renderFormCadastroCategoria } from './modals/categoriaModal.js';
-import { renderHistorico } from './modals/historicoModal.js';
-import { abrirModal } from './modals/modalUtils.js';
+import { renderFormCadastroProduto } from './modules/modals/produtoModal.js';
+import { renderFormCadastroUsuario } from './modules/modals/usuarioModal.js';
+import { renderFormCadastroCategoria } from './modules/modals/categoriaModal.js';
+import { renderHistorico } from './modules/modals/historicoModal.js';
+import { abrirModal } from './modules/modals/modalUtils.js';
 import { loadContent } from './api/administrativo/loadContent.js';
+import { fecharModal } from './modules/modals/modalUtils.js';
+import { listarProdutos } from './api/produtos.js'; // Importação da função para mostrar produtos
 
 // Inicializa o aplicativo
 function init() {
@@ -31,8 +33,7 @@ function init() {
 
     if (btnVerProdutos) {
         btnVerProdutos.addEventListener('click', () => {
-            // Código para exibir produtos cadastrados
-            mostrarProdutos(); 
+            mostrarProdutos(); // Código para exibir produtos cadastrados
         });
     }
 

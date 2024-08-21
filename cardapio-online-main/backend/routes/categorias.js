@@ -10,9 +10,5 @@ router.put('/categorias/:id', categoriasController.update);
 router.delete('/categorias/:id', categoriasController.delete);
 router.get('/categorias/produtos', categoriasController.getCategoriasComProdutos);
 
-// Se `listarCategorias` não está definido no controlador, remova essa linha:
-// router.get('/', categoriasController.listarCategorias);
-
-// Se precisar da função `listarCategorias`, adicione esta função no `categoriasController.js`.
 
 module.exports = router;

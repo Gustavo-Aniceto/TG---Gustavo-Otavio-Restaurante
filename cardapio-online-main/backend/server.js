@@ -8,7 +8,7 @@ require('dotenv').config();
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY); // Configure a chave do Stripe a partir da variável de ambiente
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 // Middleware
 app.use(cors());

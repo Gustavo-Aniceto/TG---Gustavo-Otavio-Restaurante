@@ -2,7 +2,8 @@
 
 import { renderFormCadastroProduto } from './produtos.js';
 import { carregarCategorias } from './categorias.js';
-import { abrirModal } from '../../modals/modalUtils.js';
+import { abrirModal } from '../../modules/modals/modalUtils.js';
+
 
 export function loadContent(page) {
     const contentArea = document.getElementById('main-content');

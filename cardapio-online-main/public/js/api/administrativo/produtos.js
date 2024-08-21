@@ -1,7 +1,7 @@
 // public/js/api/administrativo/produtos.js
 
 import { carregarCategorias } from './categorias.js';
-import { fecharModal } from '../../modals/modalUtils.js';
+import { fecharModal } from '../../modules/modals/modalUtils.js';
 
 export function renderFormCadastroProduto() {
     const contentArea = document.getElementById('modal-content');
