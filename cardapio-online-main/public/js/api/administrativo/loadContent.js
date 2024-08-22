@@ -28,7 +28,7 @@ export function loadContent(page) {
             };
 
             document.getElementById('btnVerProdutos').onclick = () => {
-                mostrarProdutos(); 
+                carregarCategorias(); 
             };
             break;
         case 'usuarios':

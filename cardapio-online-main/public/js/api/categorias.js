@@ -70,11 +70,20 @@ async function deletarCategoria(id) {
 }
 
 export function carregarCategorias() {
-    $.ajax({
-        url: 'http://localhost:3000/categorias',
-        method: 'GET',
-        success: function(data) {
+    fetch('http://localhost:3000/categorias')
+        .then(response => {
+            console.log('Status da resposta:', response.status);
+            if (!response.ok) {
+                throw new Error(`Erro ao carregar categorias: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Dados recebidos:', data);
             const categoriaSelect = document.getElementById('m-categoria');
+            if (!categoriaSelect) {
+                throw new Error("Elemento 'm-categoria' não foi encontrado.");
+            }
             categoriaSelect.innerHTML = '';
             data.forEach(categoria => {
                 const option = document.createElement('option');
@@ -82,9 +91,8 @@ export function carregarCategorias() {
                 option.textContent = categoria.nome;
                 categoriaSelect.appendChild(option);
             });
-        },
-        error: function(error) {
+        })
+        .catch(error => {
             console.error('Erro ao carregar categorias:', error);
-        }
-    });
+        });
 }

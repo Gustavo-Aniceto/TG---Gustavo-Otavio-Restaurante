@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 
 // Rotas
 const produtosRoutes = require('./routes/produtos');
@@ -138,5 +139,9 @@ app.get('/api/protected-route', authMiddleware, (req, res) => {
 
 // Inicia o servidor
 app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
+    console.log(`Servidor rodando na porta ${port}`);
 });
+
+const Produto = require('./models/produto');
+
+

@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 // Criar uma nova categoria
-exports.create = (req, res) => {
+exports.adicionarCategorias = (req, res) => {
     const categoria = req.body;
     const sql = 'INSERT INTO categorias (nome) VALUES (?)';
     db.query(sql, [categoria.nome], (err, result) => {
@@ -11,7 +11,7 @@ exports.create = (req, res) => {
 };
 
 // Listar todas as categorias
-exports.read = (req, res) => {
+exports.listarCategorias = (req, res) => {
     const sql = 'SELECT * FROM categorias';
     db.query(sql, (err, results) => {
         if (err) return res.status(500).json({ message: 'Erro ao listar categorias.' });
@@ -20,7 +20,7 @@ exports.read = (req, res) => {
 };
 
 // Atualizar uma categoria
-exports.update = (req, res) => {
+exports.atualizarCategorias = (req, res) => {
     const categoria = req.body;
     const sql = 'UPDATE categorias SET nome = ? WHERE id = ?';
     db.query(sql, [categoria.nome, req.params.id], (err, result) => {
@@ -30,7 +30,7 @@ exports.update = (req, res) => {
 };
 
 // Deletar uma categoria
-exports.delete = (req, res) => {
+exports.deletarCategorias = (req, res) => {
     const sql = 'DELETE FROM categorias WHERE id = ?';
     db.query(sql, [req.params.id], (err, result) => {
         if (err) return res.status(500).json({ message: 'Erro ao deletar categoria.' });

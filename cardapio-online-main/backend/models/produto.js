@@ -1,8 +1,7 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize'); 
 const sequelize = require('../config/sequelize');
-const db = require('../config/db');
-const Categoria = require('./categoria');
 
+// Definição do modelo Produto
 const Produto = sequelize.define('Produto', {
     id: {
         type: DataTypes.INTEGER,

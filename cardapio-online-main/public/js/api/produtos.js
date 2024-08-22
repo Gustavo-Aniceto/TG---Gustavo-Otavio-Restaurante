@@ -179,6 +179,44 @@ function renderizarCategoriaEProdutos(categoria, produtos) {
     categoriaContainer.appendChild(produtosLista);
     document.getElementById('conteudo').appendChild(categoriaContainer);
 }
+// Função para salvar o produto
+async function salvarProduto() {
+    // Obtém os valores do formulário
+    const nome = document.getElementById('m-nome').value;
+    const categoriaId = document.getElementById('m-categoria').value;
+    const preco = document.getElementById('m-preco').value;
+    const imagem = document.getElementById('fileInput').files[0];
+
+    // Cria um objeto FormData para enviar os dados, incluindo a imagem
+    const formData = new FormData();
+    formData.append('nome', nome);
+    formData.append('categoria_id', categoriaId);
+    formData.append('preco', preco);
+    if (imagem) {
+        formData.append('imagem', imagem);
+    }
+
+    try {
+        // Faz a requisição POST para salvar o produto no backend
+        const response = await fetch('http://localhost:3000/produtos', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            alert('Produto salvo com sucesso!');
+            // Atualiza a lista de produtos ou realiza outras ações necessárias
+            fecharModal('modal-produto');
+        } else {
+            alert('Erro ao salvar o produto.');
+        }
+    } catch (error) {
+        console.error('Erro ao salvar o produto:', error);
+        alert('Erro ao salvar o produto.');
+    }
+}
+
 
 
 

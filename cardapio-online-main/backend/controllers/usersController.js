@@ -36,7 +36,7 @@ exports.login = (req, res) => {
 };
 
 // Listar todos os usuários
-exports.listUsers = (req, res) => {
+exports.listarUser = (req, res) => {
     const sql = 'SELECT * FROM usuarios';
     db.query(sql, (err, results) => {
         if (err) return res.status(500).json({ message: 'Erro ao listar usuários.' });
@@ -45,7 +45,7 @@ exports.listUsers = (req, res) => {
 };
 
 // Atualizar um usuário
-exports.update = (req, res) => {
+exports.atualizarUser = (req, res) => {
     const { username, password } = req.body;
     const hash = bcrypt.hashSync(password, 8);
 
@@ -57,7 +57,7 @@ exports.update = (req, res) => {
 };
 
 // Deletar um usuário
-exports.delete = (req, res) => {
+exports.deletarUser = (req, res) => {
     const sql = 'DELETE FROM usuarios WHERE id = ?';
     db.query(sql, [req.params.id], (err, result) => {
         if (err) return res.status(500).json({ message: 'Erro ao deletar usuário.' });
