@@ -1,57 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>G&O Restaurante</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/fontawesome.css">
-    <link rel="stylesheet" href="./css/animate.css">
-    <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/responsivo.css">
-    <link rel="icon" type="image/png" href="./img/logo.png">
-    <script src="./js/wow.min.js"></script>
-
-
-    <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/modernizr-3.5.0.min.js"></script>
-    <script src="./js/popper.min.js"></script>
-    <script src="./js/wow.min.js"></script>
-    <script src="./js/dados.js"></script>
-    <script src="./js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./js/main.js"></script>
-
-    <!-- Scripts para Administração -->
-    <script src="js/api/administrativo/loadContent.js"></script>
-    <script src="js/api/administrativo/produtos.js"></script>
-    <script src="js/api/administrativo/categorias.js"></script>
-    <script src="js/api/administrativo/modals.js"></script>
-    <script src="js/api/categoriasApi.js"></script>
-    <script src="js/api/login.js"></script>
-
-    <script>new WOW().init();</script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/fontawesome.css">
+    <link rel="stylesheet" href="../css/animate.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/responsivo.css">
+    <link rel="icon" type="image/png" href="../img/logo.png">
 </head>
+
 <body>
 
     <!-- Seção de Mensagens e Carrinho -->
     <div class="container-mensagens" id="container-mensagens"></div>
-
-    <a class="botao-carrinho hidden" onclick="cardapio.metodos.abrirCarrinho(true)">
-        <div class="badge-total-carrinho">0</div>
-        <i class="fa fa-shopping-bag"></i>
-    </a>
 
     <!-- Navegação -->
     <section class="header">
         <div class="container">
             <nav class="navbar navbar-expand-lg pl-0 pr-0 col-one">
                 <a href="#" class="navbar-brand wow bounceInDown">
-                    <img src="./img/logo.png" alt="Logo" width="160" class="img-logo">
+                    <img src="../img/logo.png" alt="Logo" width="160" class="img-logo">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
                     <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
@@ -61,12 +35,6 @@
                         <li class="nav-item"><a href="#cardapio" class="nav-link"><b>Cardápio</b></a></li>
                         <li class="nav-item"><a href="login.html" class="nav-link"><b>ADM</b></a></li>
                     </ul>
-                    <a class="btn btn-white btn-icon wow bounceInDown delay-02s" onclick="cardapio.metodos.abrirCarrinho(true)">
-                        Carrinho <span class="icon">
-                            <div class="container-total-carrinho badge-total-carrinho hidden">0</div>
-                            <i class="fa fa-shopping-bag"></i>
-                        </span>
-                    </a>
                 </div>
             </nav>
         </div>
@@ -78,9 +46,11 @@
             <div class="row">
                 <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-one">
                     <div class="d-flex text-banner">
-                        <h1 class="wow fadeInLeft"><b>Gustavo & Otavio <b class="color-primary">Restaurante.</b></b></h1>
+                        <h1 class="wow fadeInLeft"><b>Gustavo & Otavio <b class="color-primary">Restaurante.</b></b>
+                        </h1>
                         <p class="wow fadeInLeft delay-02s">
-                            Seja bem-vindo ao nosso Restaurante! Aqui você terá o melhor atendimento, unindo praticidade e tecnologia!
+                            Seja bem-vindo ao nosso Restaurante! Aqui você terá o melhor atendimento, unindo praticidade
+                            e tecnologia!
                         </p>
                         <div class="wow fadeInUp delay-05s">
                             <a class="btn btn-yellow mt-4 mr-3" href="#cardapio">Ver cardápio</a>
@@ -90,10 +60,12 @@
                         </div>
                     </div>
                     <div class="wow fadeInUp delay-07s">
-                        <a href="https://www.instagram.com/eo_aniceto/" class="btn btn-sm btn-white btn-social mt-4 mr-3" target="_blank">
+                        <a href="https://www.instagram.com/eo_aniceto/"
+                            class="btn btn-sm btn-white btn-social mt-4 mr-3" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="https://www.facebook.com/gustavo.aniceto.5" class="btn btn-sm btn-white btn-social mt-4 mr-3" target="_blank">
+                        <a href="https://www.facebook.com/gustavo.aniceto.5"
+                            class="btn btn-sm btn-white btn-social mt-4 mr-3" target="_blank">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#" class="btn btn-sm btn-white btn-social mt-4" id="btnWhatsapp" target="_blank">
@@ -104,7 +76,7 @@
                 <div class="col-6 no-mobile">
                     <div class="card-banner wow fadeIn delay-02s"></div>
                     <div class="d-flex img-banner wow fadeIn delay-05s">
-                        <img src="./img/burguer.png" alt="Burguer suculento">
+                        <img src="../img/burguer.png" alt="Burguer suculento">
                     </div>
                 </div>
             </div>
@@ -117,15 +89,15 @@
             <div class="row" id="itensCardapio-burgers">
                 <!-- Produtos da categoria Burgers serão inseridos aqui -->
             </div>
-    
+
             <div class="row" id="itensCardapio-pizzas">
                 <!-- Produtos da categoria Pizzas serão inseridos aqui -->
             </div>
-    
+
             <div class="row" id="itensCardapio-bebidas">
                 <!-- Produtos da categoria Bebidas serão inseridos aqui -->
             </div>
-    
+
             <!-- Adicione mais categorias conforme necessário -->
         </div>
     </section>
@@ -141,8 +113,7 @@
                                 <h1 class="title"><b>Mais informações sobre o restaurante</b></h1>
                                 <div class="container-info">
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel facilisis elit, id varius ipsum.
-                                    </p>
+                                        o melhor lugar para voce e sua familia!</p>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-5 col-md-5 col-sm-12">
@@ -172,34 +143,17 @@
         </div>
     </section>
 
-    <!-- Modal de Login -->
-    <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLoginLabel">Login</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="formLogin">
-                        <div class="mb-3">
-                            <label for="usuario" class="form-label">Usuário</label>
-                            <input type="text" class="form-control" id="usuario" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="senha" class="form-label">Senha</label>
-                            <input type="password" class="form-control" id="senha" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Entrar</button>
-                    </form>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="wow fadeInDown">© 2023 G&O Restaurante. Todos os direitos reservados.</p>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 
-
-    <!-- Scripts -->
-    <script src="./js/axios.min.js"></script>
-    <script src="./js/main.js"></script>
 </body>
+
 </html>
