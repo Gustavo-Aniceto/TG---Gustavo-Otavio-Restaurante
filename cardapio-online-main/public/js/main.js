@@ -64,3 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
     init();
     loadContent('produtos');  // Carregar produtos por padrão
 });
+document.getElementById('btnCarrinho').addEventListener('click', function() {
+    document.querySelector('.carrinho').classList.toggle('open');
+});

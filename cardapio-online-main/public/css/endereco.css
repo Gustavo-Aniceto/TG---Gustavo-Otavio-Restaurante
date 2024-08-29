@@ -1,0 +1,115 @@
+/* enderecos.css */
+
+/* Definição da fonte */
+body {
+    font-family: 'Roboto', sans-serif; /* Escolha uma fonte bonita e moderna */
+    background-color: #f7f7f7; /* Cor de fundo suave */
+    color: #333; /* Cor do texto */
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilização do formulário */
+form {
+    background-color: #fff;
+    border-radius: 12px; /* Bordas arredondadas */
+    padding: 20px;
+    max-width: 700px;
+    margin: 50px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+/* Estilização dos títulos */
+h2 {
+    font-size: 1.5rem;
+    color: #111;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Estilização dos labels */
+label {
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Inputs, Textarea e Select */
+input[type="text"],
+input[type="email"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+/* Estilização do botão */
+button[type="submit"], button[type="button"] {
+    background-color: #feca57; /* Cor amarela */
+    color: #111;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px; /* Bordas arredondadas */
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover no botão */
+button[type="submit"]:hover, button[type="button"]:hover {
+    background-color: #f39c12; /* Tom de amarelo mais escuro no hover */
+}
+
+/* Estilização dos campos de upload de arquivo */
+input[type="file"] {
+    font-size: 0.9rem;
+}
+
+/* Estilização das caixas de seleção e dos botões de rádio */
+input[type="checkbox"], input[type="radio"] {
+    margin-right: 10px;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+/* Espaçamento entre os itens */
+.space-y-12 > * + * {
+    margin-top: 20px;
+}
+
+.grid-cols-1 > * {
+    margin-bottom: 20px;
+}
+
+/* Sombra nos SVGs */
+svg {
+    fill: #ccc;
+    margin-right: 10px;
+}
+
+/* Estilização para dispositivos menores */
+@media (max-width: 600px) {
+    form {
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+}

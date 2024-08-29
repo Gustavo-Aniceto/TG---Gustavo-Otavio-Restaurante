@@ -1,159 +1,100 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G&O Restaurante</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/fontawesome.css">
-    <link rel="stylesheet" href="../css/animate.css">
+    <title>G & O Restaurante</title>
     <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/responsivo.css">
-    <link rel="icon" type="image/png" href="../img/logo.png">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-gray-50 text-gray-900 antialiased">
 
-    <!-- Seção de Mensagens e Carrinho -->
-    <div class="container-mensagens" id="container-mensagens"></div>
+    <main class="conteudo">
 
-    <!-- Navegação -->
-    <section class="header">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg pl-0 pr-0 col-one">
-                <a href="#" class="navbar-brand wow bounceInDown">
-                    <img src="../img/logo.png" alt="Logo" width="160" class="img-logo">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown">
-                    <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav ml-auto mr-auto wow bounceInDown delay-01s">
-                        <li class="nav-item"><a href="#cardapio" class="nav-link"><b>Cardápio</b></a></li>
-                        <li class="nav-item"><a href="login.html" class="nav-link"><b>ADM</b></a></li>
-                    </ul>
+        <!-- Cabeçalho e Navegação -->
+        <header class="bg-white shadow">
+            <div class="container mx-auto px-4">
+                <nav class="flex items-center justify-between">
+                    <a href="#" class="text-xl font-semibold text-gray-900">
+                        <img src="../img/logo.png" alt="Logo" class="w-32">
+                    </a>
+                    <div class="flex items-center space-x-6">
+                        <a href="login.html" class="text-lg font-medium text-gray-800 hover:text-gray-600">ADM</a>
+                        <i class="bi bi-cart-check-fill text-xl text-gray-800"></i>
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Seção de Banner -->
+        <section class="bg-yellow-400 py-20">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2">
+                    <h1 class="text-4xl font-bold text-gray-900 leading-tight">
+                        Gustavo & Otavio <span class="text-yellow-700">Restaurante.</span>
+                    </h1>
+                    <p class="mt-4 text-lg text-gray-800">
+                        Seja bem-vindo ao nosso Restaurante! Aqui você terá o melhor atendimento, unindo praticidade e
+                        tecnologia!
+                    </p>
+                    <div class="mt-8">
+                        <a href="#cardapio"
+                            class="inline-block bg-yellow-600 text-white py-3 px-6 rounded-full shadow hover:bg-yellow-500 mr-3">Ver
+                            cardápio</a>
+                    </div>
                 </div>
-            </nav>
-        </div>
-    </section>
+                <div class="mt-8 md:mt-0 md:w-1/2">
+                    <img src="../img/burguer.png" alt="Burguer suculento" class="w-full h-auto">
+                </div>
+            </div>
+        </section>
 
-    <!-- Banner -->
-    <section class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-6 col-md-6 col-sm-12 col-one">
-                    <div class="d-flex text-banner">
-                        <h1 class="wow fadeInLeft"><b>Gustavo & Otavio <b class="color-primary">Restaurante.</b></b>
-                        </h1>
-                        <p class="wow fadeInLeft delay-02s">
-                            Seja bem-vindo ao nosso Restaurante! Aqui você terá o melhor atendimento, unindo praticidade
-                            e tecnologia!
-                        </p>
-                        <div class="wow fadeInUp delay-05s">
-                            <a class="btn btn-yellow mt-4 mr-3" href="#cardapio">Ver cardápio</a>
-                            <a href="#" class="btn btn-white btn-icon-left mt-4" id="btnLigar">
-                                <span class="icon-left"><i class="fa fa-phone"></i></span>(Número do Restaurante)
-                            </a>
+        <!-- Seção de Cardápio -->
+        <section id="cardapio" class="py-16 bg-white">
+
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
+
+                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+            </div>
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8">Nossos Produtos</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Produto 1 -->
+                    <div class="group bg-gray-100 rounded-lg shadow-lg overflow-hidden">
+                        <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
+                            alt="Camiseta Básica" class="w-full h-56 object-cover group-hover:opacity-75">
+                        <div class="p-4">
+                            <h3 class="text-lg font-semibold text-gray-800">Camiseta Básica</h3>
+                            <p class="text-sm text-gray-500">Preto</p>
+                            <p class="text-lg font-bold text-gray-900 mt-2">R$35,00</p>
                         </div>
                     </div>
-                    <div class="wow fadeInUp delay-07s">
-                        <a href="https://www.instagram.com/eo_aniceto/"
-                            class="btn btn-sm btn-white btn-social mt-4 mr-3" target="_blank">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.facebook.com/gustavo.aniceto.5"
-                            class="btn btn-sm btn-white btn-social mt-4 mr-3" target="_blank">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-white btn-social mt-4" id="btnWhatsapp" target="_blank">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-6 no-mobile">
-                    <div class="card-banner wow fadeIn delay-02s"></div>
-                    <div class="d-flex img-banner wow fadeIn delay-05s">
-                        <img src="../img/burguer.png" alt="Burguer suculento">
-                    </div>
+
+                    <!-- Mais produtos podem ser adicionados aqui -->
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="cardapio" id="cardapio">
-        <div class="background-cardapio"></div>
-        <div class="container">
-            <div class="row" id="itensCardapio-burgers">
-                <!-- Produtos da categoria Burgers serão inseridos aqui -->
-            </div>
+    </main>
 
-            <div class="row" id="itensCardapio-pizzas">
-                <!-- Produtos da categoria Pizzas serão inseridos aqui -->
-            </div>
-
-            <div class="row" id="itensCardapio-bebidas">
-                <!-- Produtos da categoria Bebidas serão inseridos aqui -->
-            </div>
-
-            <!-- Adicione mais categorias conforme necessário -->
-        </div>
-    </section>
-
-    <section class="reserva" id="reservas">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-one wow fadeInUp">
-                    <div class="card-secondary">
-                        <div class="row">
-                            <div class="col-12 col-lg-7 col-md-7 col-sm-12">
-                                <span><b class="hint-title">Informações</b></span>
-                                <h1 class="title"><b>Mais informações sobre o restaurante</b></h1>
-                                <div class="container-info">
-                                    <p>
-                                        o melhor lugar para voce e sua familia!</p>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-5 col-md-5 col-sm-12">
-                                <div class="container-reservas">
-                                    <h2><b>Faça sua reserva</b></h2>
-                                    <form id="form-reserva">
-                                        <div class="form-group">
-                                            <label for="nome">Nome</label>
-                                            <input type="text" class="form-control" id="nome" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="email">E-mail</label>
-                                            <input type="email" class="form-control" id="email" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="telefone">Telefone</label>
-                                            <input type="tel" class="form-control" id="telefone" required>
-                                        </div>
-                                        <button type="submit" class="btn btn-yellow">Enviar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p class="wow fadeInDown">© 2023 G&O Restaurante. Todos os direitos reservados.</p>
-                </div>
-            </div>
+    <!-- Rodapé -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="container mx-auto text-center">
+            <p>© 2023 G&O Restaurante. Todos os direitos reservados.</p>
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://kit.fontawesome.com/239054f0fc.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
