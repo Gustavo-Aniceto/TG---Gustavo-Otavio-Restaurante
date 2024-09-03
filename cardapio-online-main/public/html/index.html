@@ -53,33 +53,13 @@
 
         <!-- Seção de Cardápio -->
         <section id="cardapio" class="py-16 bg-white">
-
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>
-
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>
+            <div id="categorias" class="btn-group" role="group" aria-label="Categorias">
+                <!-- Botões de rádio para as categorias serão inseridos aqui -->
             </div>
-            <div class="container mx-auto px-4">
+            <div id="produtos" class="container mx-auto px-4">
                 <h2 class="text-2xl font-bold text-gray-900 mb-8">Nossos Produtos</h2>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Produto 1 -->
-                    <div class="group bg-gray-100 rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg"
-                            alt="Camiseta Básica" class="w-full h-56 object-cover group-hover:opacity-75">
-                        <div class="p-4">
-                            <h3 class="text-lg font-semibold text-gray-800">Camiseta Básica</h3>
-                            <p class="text-sm text-gray-500">Preto</p>
-                            <p class="text-lg font-bold text-gray-900 mt-2">R$35,00</p>
-                        </div>
-                    </div>
-
-                    <!-- Mais produtos podem ser adicionados aqui -->
+                <div id="produtos-lista" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Produtos serão inseridos aqui -->
                 </div>
             </div>
         </section>
@@ -95,6 +75,84 @@
 
     <!-- Scripts -->
     <script src="https://kit.fontawesome.com/239054f0fc.js" crossorigin="anonymous"></script>
+    
+    <!-- Seu script JavaScript para carregar categorias e produtos -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            carregarCategorias();
+
+            async function carregarCategorias() {
+                try {
+                    const response = await fetch('/api/categorias');
+                    const categorias = await response.json();
+
+                    const categoriasContainer = document.getElementById('categorias');
+                    categoriasContainer.innerHTML = '';
+
+                    categorias.forEach(categoria => {
+                        const radio = document.createElement('input');
+                        radio.type = 'radio';
+                        radio.name = 'btnradio';
+                        radio.className = 'btn-check';
+                        radio.id = `categoria-${categoria.id}`;
+                        radio.autocomplete = 'off';
+
+                        if (categoria.id === 1) {
+                            radio.checked = true;
+                        }
+
+                        const label = document.createElement('label');
+                        label.className = 'btn btn-outline-primary';
+                        label.setAttribute('for', `categoria-${categoria.id}`);
+                        label.textContent = categoria.nome;
+
+                        radio.addEventListener('change', () => {
+                            carregarProdutos(categoria.id);
+                        });
+
+                        categoriasContainer.appendChild(radio);
+                        categoriasContainer.appendChild(label);
+                    });
+
+                    if (categorias.length > 0) {
+                        carregarProdutos(categorias[0].id);
+                    }
+                } catch (error) {
+                    console.error('Erro ao carregar categorias:', error);
+                }
+            }
+
+            async function carregarProdutos(categoriaId) {
+                try {
+                    const response = await fetch(`/api/categorias/${categoriaId}/produtos`);
+                    const produtos = await response.json();
+
+                    const produtosContainer = document.getElementById('produtos-lista');
+                    produtosContainer.innerHTML = '';
+
+                    produtos.forEach(produto => {
+                        const produtoCard = document.createElement('div');
+                        produtoCard.className = 'group bg-gray-100 rounded-lg shadow-lg overflow-hidden p-4';
+
+                        const produtoNome = document.createElement('h3');
+                        produtoNome.className = 'text-lg font-semibold text-gray-800';
+                        produtoNome.textContent = produto.nome;
+
+                        const produtoPreco = document.createElement('p');
+                        produtoPreco.className = 'text-lg font-bold text-gray-900 mt-2';
+                        produtoPreco.textContent = `R$ ${produto.preco.toFixed(2)}`;
+
+                        produtoCard.appendChild(produtoNome);
+                        produtoCard.appendChild(produtoPreco);
+
+                        produtosContainer.appendChild(produtoCard);
+                    });
+                } catch (error) {
+                    console.error('Erro ao carregar produtos:', error);
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

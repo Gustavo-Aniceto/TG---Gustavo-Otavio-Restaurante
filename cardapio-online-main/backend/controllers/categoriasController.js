@@ -1,57 +1,64 @@
-const db = require('../config/db');
+const { Categoria, Produto } = require('../models');
 
-// Criar uma nova categoria
-exports.adicionarCategorias = (req, res) => {
-    const categoria = req.body;
-    const sql = 'INSERT INTO categorias (nome) VALUES (?)';
-    db.query(sql, [categoria.nome], (err, result) => {
-        if (err) return res.status(500).json({ message: 'Erro ao inserir categoria.' });
-        res.send({ message: 'Categoria inserida com sucesso!', id: result.insertId });
-    });
+// Função para listar todas as categorias
+exports.listarCategorias = async (req, res) => {
+    try {
+        const categorias = await Categoria.findAll();
+        res.json(categorias);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar categorias' });
+    }
 };
 
-// Listar todas as categorias
-exports.listarCategorias = (req, res) => {
-    const sql = 'SELECT * FROM categorias';
-    db.query(sql, (err, results) => {
-        if (err) return res.status(500).json({ message: 'Erro ao listar categorias.' });
-        res.send(results);
-    });
+// Função para adicionar uma nova categoria
+exports.adicionarCategorias = async (req, res) => {
+    try {
+        const novaCategoria = await Categoria.create(req.body);
+        res.status(201).json(novaCategoria);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao adicionar categoria' });
+    }
 };
 
-// Atualizar uma categoria
-exports.atualizarCategorias = (req, res) => {
-    const categoria = req.body;
-    const sql = 'UPDATE categorias SET nome = ? WHERE id = ?';
-    db.query(sql, [categoria.nome, req.params.id], (err, result) => {
-        if (err) return res.status(500).json({ message: 'Erro ao atualizar categoria.' });
-        res.send({ message: 'Categoria atualizada com sucesso!' });
-    });
+// Função para atualizar uma categoria existente
+exports.atualizarCategorias = async (req, res) => {
+    try {
+        const categoria = await Categoria.findByPk(req.params.id);
+        if (!categoria) {
+            return res.status(404).json({ error: 'Categoria não encontrada' });
+        }
+        await categoria.update(req.body);
+        res.json(categoria);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao atualizar categoria' });
+    }
 };
 
-// Deletar uma categoria
-exports.deletarCategorias = (req, res) => {
-    const sql = 'DELETE FROM categorias WHERE id = ?';
-    db.query(sql, [req.params.id], (err, result) => {
-        if (err) return res.status(500).json({ message: 'Erro ao deletar categoria.' });
-        res.send({ message: 'Categoria deletada com sucesso!' });
-    });
+// Função para deletar uma categoria
+exports.deletarCategorias = async (req, res) => {
+    try {
+        const categoria = await Categoria.findByPk(req.params.id);
+        if (!categoria) {
+            return res.status(404).json({ error: 'Categoria não encontrada' });
+        }
+        await categoria.destroy();
+        res.status(204).json();
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao deletar categoria' });
+    }
 };
 
-// Obter categorias com seus respectivos produtos
+// Função para listar categorias com seus produtos relacionados
 exports.getCategoriasComProdutos = async (req, res) => {
     try {
-        const sql = `
-            SELECT c.nome AS categoria, p.*
-            FROM categorias c
-            LEFT JOIN produtos p ON c.id = p.categoria_id
-            ORDER BY c.nome, p.nome
-        `;
-        db.query(sql, (err, results) => {
-            if (err) return res.status(500).json({ message: 'Erro ao buscar categorias e produtos.' });
-            res.json(results);
+        const categorias = await Categoria.findAll({
+            include: [{
+                model: Produto, // Supondo que você tenha um relacionamento entre Categoria e Produto
+                as: 'produtos'
+            }]
         });
+        res.json(categorias);
     } catch (error) {
-        res.status(500).json({ message: "Erro ao buscar categorias e produtos", error });
+        res.status(500).json({ error: 'Erro ao buscar categorias com produtos' });
     }
 };

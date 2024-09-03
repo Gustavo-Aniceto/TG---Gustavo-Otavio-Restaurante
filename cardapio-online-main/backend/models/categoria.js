@@ -1,15 +1,18 @@
-const db = require('../config/db');
+// models/Categoria.js
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/sequelize');
 
-const Categoria = {
-    criar: (novaCategoria, callback) => {
-        const sql = 'INSERT INTO categorias SET ?';
-        db.query(sql, novaCategoria, callback);
-    },
+class Categoria extends Model {}
 
-    buscarTodas: (callback) => {
-        const sql = 'SELECT * FROM categorias';
-        db.query(sql, callback);
-    }
+Categoria.init({
+    nome: DataTypes.STRING,
+}, {
+    sequelize,
+    modelName: 'Categoria',
+});
+
+Categoria.associate = (models) => {
+    Categoria.hasMany(models.Produto, { as: 'produtos', foreignKey: 'categoriaId' });
 };
 
 module.exports = Categoria;

@@ -1,31 +1,21 @@
-const { DataTypes } = require('sequelize'); 
+// models/Produto.js
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/sequelize');
 
-// Definição do modelo Produto
-const Produto = sequelize.define('Produto', {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    nome: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    preco: {
-        type: DataTypes.FLOAT,
-        allowNull: false
-    },
-    imagem: {
-        type: DataTypes.STRING
-    },
-    categoria_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+class Produto extends Model {}
+
+Produto.init({
+    nome: DataTypes.STRING,
+    descricao: DataTypes.STRING,
+    preco: DataTypes.FLOAT,
+    categoriaId: DataTypes.INTEGER,
 }, {
-    tableName: 'produtos',
-    timestamps: false
+    sequelize,
+    modelName: 'Produto',
 });
+
+Produto.associate = (models) => {
+    Produto.belongsTo(models.Categoria, { as: 'categoria', foreignKey: 'categoriaId' });
+};
 
 module.exports = Produto;
